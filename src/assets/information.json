@@ -1,0 +1,52 @@
+{
+    "items": [
+        {
+            "name": "Ingrédients",
+            "children": [
+                {
+                    "name": "1 poulet coupé en 6 morceaux"
+                },
+                {
+                    "name": "1kg de tomate"
+                },
+                {
+                    "name": "700gr de poivron (verts et rouges)"
+                },
+                {
+                    "name": "3 oignons émincés"
+                },
+                {
+                    "name": "3 gousses d'ail"
+                },
+                {
+                    "name": "20 cl de vin blanc"
+                }
+            ]
+        },
+        {
+            "name": "Préparation",
+            "children": [
+                {
+                    "name": "Hacher l'oignon et l'ail. Couper les tomates en morceaux et détailler les poivrons en lanières."
+                },
+                {
+                    "name": "Faire chauffer 4 cuillères à soupe d'huile dans une cocotte. Y faire dorer les oignons, l'ail et les poivron. Laisser cuire 5 min."
+                },
+                {
+                    "name": "Ajouter les tomates à la cocotte, saler, poivrer. Couvrir et laisser mijoter 20 min."
+                }
+            ]
+        },
+        {
+            "name": "Cuisson",
+            "children": [
+                {
+                    "name": "Dans une sauteuse, faire dorer dans l'huile d'olive les morceaux de poulet salés et poivrés. "
+                },
+                {
+                    "name": "Lorsqu'ils sont dorés, les ajouter aux légumes, couvrir, ajouter le bouquet garni et le vin blanc et c'est parti pour 35 min de cuisson. "
+                }
+            ]
+        }
+    ]
+}

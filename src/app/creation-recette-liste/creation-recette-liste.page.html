@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar class="header_toolbar header_gradient" border-color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="{{parentPage}}" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" color="light" menu="first"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="header_flex_logo">
+        <img class="header_width_logo" src="/assets/img/cookez_logo.png" />
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-menu side="start" menuId="first">
+  <ion-header>
+      <ion-toolbar class="menu" color="primary">
+          <ion-title>Menu</ion-title>
+      </ion-toolbar>
+  </ion-header>
+  <ion-content>
+      <ion-list>
+          <ion-item>
+              <ion-icon color="primary" sold="start" name="avatar" src="assets/avatar.svg" class="ion-margin-end">
+              </ion-icon>
+              Mon compte
+          </ion-item>
+          <ion-item>
+              <ion-icon color="primary" sold="start" name="recipes" src="assets/recipes.svg" class="ion-margin-end">
+              </ion-icon>
+              Mes recettes
+          </ion-item>
+          <ion-item disabled>
+              <ion-label>
+                  <ion-icon sold="start" name="informations" src="assets/informations.svg" class="ion-margin-end">
+                  </ion-icon>
+                  Notifications
+              </ion-label>
+              <ion-badge color="primary" slot="end">22</ion-badge>
+          </ion-item>
+          <ion-item>
+              <ion-label>
+                  <ion-icon color="primary" name="disconnect" src="assets/disconnect.svg" class="ion-margin-end">
+                  </ion-icon>
+                  Se déconnecter
+              </ion-label>
+          </ion-item>
+      </ion-list>
+      <ion-label slod="bottom" class="copyright">
+          ©Tous droits réservés. David, Jennifer, Xavier, Thomas 2019
+      </ion-label>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>
+
+<ion-content>
+  <!-- Main block -->
+  <div class="list_recipes_created_page">
+    <!-- Title list of recipes created page -->
+    <h1 class="page_title">Votre carnet de recettes</h1>
+    <!-- Content list of recipes created -->
+    <div class="recipe_created_content">
+      <div class="recipe_created_title">
+        <h1 class="recipe_created_h1">Poulet basquaise</h1>
+      </div>
+      <div class="recipe_created_info">
+        <p class="recipe_created_date_add">Ajoutée le 14/07/2019</p>
+        <div class="recipe_created_icons">
+          <img src="assets/icon/edit.svg" width="30px"/>
+          <img src="assets/icon/clear.svg" width="30px"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe_created_content">
+      <div class="recipe_created_title">
+        <h1 class="recipe_created_h1">Poulet basquaise</h1>
+      </div>
+      <div class="recipe_created_info">
+        <p class="recipe_created_date_add">Ajoutée le 14/07/2019</p>
+        <div class="recipe_created_icons">
+          <img src="assets/icon/edit.svg" width="30px"/>
+          <img src="assets/icon/clear.svg" width="30px"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe_created_content">
+      <div class="recipe_created_title">
+        <h1 class="recipe_created_h1">Poulet basquaise</h1>
+      </div>
+      <div class="recipe_created_info">
+        <p class="recipe_created_date_add">Ajoutée le 14/07/2019</p>
+        <div class="recipe_created_icons">
+          <img src="assets/icon/edit.svg" width="30px"/>
+          <img src="assets/icon/clear.svg" width="30px"/>
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe_created_content">
+      <div class="recipe_created_title">
+        <h1 class="recipe_created_h1">Poulet basquaise</h1>
+      </div>
+      <div class="recipe_created_info">
+        <p class="recipe_created_date_add">Ajoutée le 14/07/2019</p>
+        <div class="recipe_created_icons">
+          <img src="assets/icon/edit.svg" width="30px"/>
+          <img src="assets/icon/clear.svg" width="30px"/>
+        </div>
+      </div>
+    </div>
+    <!-- Button create recipe -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="openModalCreateRecipe()">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+</ion-content>

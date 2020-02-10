@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar class="header_toolbar header_gradient" border-color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button icon="" defaultHref="/" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" color="light" menu="first"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="header_flex_logo">
+        <img class="header_width_logo" src="/assets/img/cookez_logo.png" />
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-menu side="start" menuId="first">
+  <ion-header>
+    <ion-toolbar class="menu" color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item (click)="goToTheUserInfoPage()">
+        <ion-icon color="primary" sold="start" name="avatar" src="assets/avatar.svg" class="ion-margin-end"></ion-icon>
+        Mon compte
+      </ion-item>
+      <ion-item>
+        <ion-icon color="primary" sold="start" name="recipes" src="assets/recipes.svg" class="ion-margin-end">
+        </ion-icon>
+        Mes recettes
+      </ion-item>
+      <ion-item disabled>
+        <ion-label>
+          <ion-icon sold="start" name="informations" src="assets/informations.svg" class="ion-margin-end"></ion-icon>
+          Notifications
+        </ion-label>
+        <ion-badge color="primary" slot="end">22</ion-badge>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-icon color="primary" name="disconnect" src="assets/disconnect.svg" class="ion-margin-end"></ion-icon>
+          Se déconnecter
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-label slod="bottom" class="copyright">
+      ©Tous droits réservés. David, Jennifer, Xavier, Thomas 2019
+    </ion-label>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>
+
+<ion-content>
+  <div class="mg_top_10">
+    <ion-card (click)="goToTheCategoryPage()" class="ion-text-center mg_bottom_10">
+      <div class="block_home" id="aperitifs_img">
+        <ion-card-header name="aperitifs">
+          <ion-card-title class="ion-text-uppercase home_titles">Apéritifs</ion-card-title>
+        </ion-card-header>
+      </div>
+    </ion-card>
+
+    <ion-card (click)="goToTheCategoryPage()" class="ion-text-center mg_bottom_10" type="button">
+      <div class="block_home" id="entrees_img">
+        <ion-card-header name="entrees">
+          <ion-card-title class="ion-text-uppercase home_titles">Entrées</ion-card-title>
+        </ion-card-header>
+      </div>
+    </ion-card>
+
+    <ion-card (click)="goToTheCategoryPage()" class="ion-text-center mg_bottom_10" type="button">
+      <div class="block_home" id="plats_img">
+        <ion-card-header name="plats">
+          <ion-card-title class="ion-text-uppercase home_titles">Plats</ion-card-title>
+        </ion-card-header>
+      </div>
+    </ion-card>
+
+    <ion-card (click)="goToTheCategoryPage()" class="ion-text-center mg_bottom_10" type="button">
+      <div class="block_home" id="desserts_img">
+        <ion-card-header name="desserts">
+          <ion-card-title class="ion-text-uppercase home_titles">Desserts</ion-card-title>
+        </ion-card-header>
+      </div>
+    </ion-card>
+  </div>
+</ion-content>
