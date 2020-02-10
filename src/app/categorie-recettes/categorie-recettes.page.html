@@ -57,157 +57,34 @@
   <!-- Searchbar -->
   <ion-searchbar class="new_searchbar" clearIcon placeholder="Rechercher une recette"></ion-searchbar>
     <!-- Recipe List Page Title -->
-    <h1 class="page_title">Plats</h1>
+    <h1 class="page_title">{{ typedata.nom }}</h1>
       <!-- First row -->
-      <ion-row>
+      <ion-row *ngIf="recettes.length > 0">
         <!-- First card -->
-        <ion-col size="6">
-          <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
-            <div class="list_recipe_card">
-              <div class="list_recipe_img">
-                <!-- Add img css -->
-              </div>
-              <div class="list_recipe_card_infos">
-                <h1 class="list_recipe_card_title">Poulet basquaise</h1>
-                <div class="list_recipe_info_block">
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/time.svg" width="30px" />
-                    <span class="list_recipe_info_text">1H30</span>
-                  </div>
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/level.svg" width="30px" />
-                    <span class="list_recipe_info_text">Facile</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ion-card>
-        </ion-col>
   
-        <!-- Second card  -->
-        <ion-col size="6">
-          <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
-            <div class="list_recipe_card">
-              <div class="list_recipe_img">
-                <!-- Add img css -->
-              </div>
-              <div class="list_recipe_card_infos">
-                <h1 class="list_recipe_card_title">Poulet basquaise</h1>
-                <div class="list_recipe_info_block">
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/time.svg" width="30px" />
-                    <span class="list_recipe_info_text">1H30</span>
-                  </div>
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/level.svg" width="30px" />
-                    <span class="list_recipe_info_text">Facile</span>
-                  </div>
+          <ion-col size="6" *ngFor="let recette of recettes | keyvalue">
+            <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
+              <div class="list_recipe_card">
+                <div class="list_recipe_img">
+                  <!-- Add img css -->  
                 </div>
-              </div>
-            </div>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-      
-      <!-- Second row -->
-      <ion-row>
-        <!-- Third card -->
-        <ion-col size="6">
-          <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
-            <div class="list_recipe_card">
-              <div class="list_recipe_img">
-                <!-- Add img css -->
-              </div>
-              <div class="list_recipe_card_infos">
-                <h1 class="list_recipe_card_title">Poulet basquaise</h1>
-                <div class="list_recipe_info_block">
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/time.svg" width="30px" />
-                    <span class="list_recipe_info_text">1H30</span>
-                  </div>
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/level.svg" width="30px" />
-                    <span class="list_recipe_info_text">Facile</span>
+                <div class="list_recipe_card_infos">
+                  <h1 class="list_recipe_card_title">{{ recette.value.nom }}</h1>
+                  <div class="list_recipe_info_block">
+                    <div class="list_recipe_info">
+                      <img src="assets/icon/time.svg" width="30px" />
+                      <span class="list_recipe_info_text">1H30</span>
+                    </div>
+                    <div class="list_recipe_info">
+                      <img src="assets/icon/level.svg" width="30px" />
+                      <span class="list_recipe_info_text">Facile</span>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </ion-card>
-        </ion-col>
-  
-        <!-- Fourth card  -->
-        <ion-col size="6">
-          <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
-            <div class="list_recipe_card">
-              <div class="list_recipe_img">
-                <!-- Add img css -->
-              </div>
-              <div class="list_recipe_card_infos">
-                <h1 class="list_recipe_card_title">Poulet basquaise</h1>
-                <div class="list_recipe_info_block">
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/time.svg" width="30px" />
-                    <span class="list_recipe_info_text">1H30</span>
-                  </div>
-                  <div class="list_recipe_info">
-                    <img src="assets/icon/level.svg" width="30px" />
-                    <span class="list_recipe_info_text">Facile</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </ion-card>
-        </ion-col>
-      </ion-row>
-  
-    <!-- Third row   -->
-    <ion-row>
-      <!-- Fifth card -->
-      <ion-col size="6">
-        <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
-          <div class="list_recipe_card">
-            <div class="list_recipe_img">
-              <!-- Add img css -->
-            </div>
-            <div class="list_recipe_card_infos">
-              <h1 class="list_recipe_card_title">Poulet basquaise</h1>
-              <div class="list_recipe_info_block">
-                <div class="list_recipe_info">
-                  <img src="assets/icon/time.svg" width="30px" />
-                  <span class="list_recipe_info_text">1H30</span>
-                </div>
-                <div class="list_recipe_info">
-                  <img src="assets/icon/level.svg" width="30px" />
-                  <span class="list_recipe_info_text">Facile</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ion-card>
-      </ion-col>
-  
-      <!-- Sixth card  -->
-      <ion-col size="6">
-        <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
-          <div class="list_recipe_card">
-            <div class="list_recipe_img">
-              <!-- Add img css -->
-            </div>
-            <div class="list_recipe_card_infos">
-              <h1 class="list_recipe_card_title">Poulet basquaise</h1>
-              <div class="list_recipe_info_block">
-                <div class="list_recipe_info">
-                  <img src="assets/icon/time.svg" width="30px" />
-                  <span class="list_recipe_info_text">1H30</span>
-                </div>
-                <div class="list_recipe_info">
-                  <img src="assets/icon/level.svg" width="30px" />
-                  <span class="list_recipe_info_text">Facile</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </ion-card>
-      </ion-col>
+            </ion-card>
+          </ion-col>
+
+
     </ion-row>
   </ion-content>

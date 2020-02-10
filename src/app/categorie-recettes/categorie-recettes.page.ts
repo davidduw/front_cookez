@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router, NavigationExtras, ActivatedRoute  } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment, API_TOKEN } from '../../environments/environment';
+
+
 
 @Component({
   selector: 'app-categorie-recettes',
@@ -9,10 +13,47 @@ import { Router, NavigationExtras } from '@angular/router';
 export class CategorieRecettesPage implements OnInit {
 
   parentPage: string = "onglets/accueil-recette";
+  idtype = "";
+  sub;
+  typedata = {};
+  recettes = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private Activatedroute:ActivatedRoute, public http: HttpClient) { 
+
+    //this.idtype = this.router.getCurrentNavigation().extras.state['idtype'];
+    //console.log(this.idtype);
+    
+  }
 
   ngOnInit() {
+
+    this.sub=this.Activatedroute.paramMap.subscribe(params => { 
+      console.log(params);
+       this.idtype = params.get('idtype'); 
+    });
+
+    if(this.idtype != "0"){
+      
+      /* Paramètrage du header */
+      var httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization' : 'BEARER '+ API_TOKEN
+        })
+      }
+
+      /* Requete */
+      this.http.get("http://localhost:8000/api/types/"+this.idtype, httpOptions)
+      .subscribe(data => {
+        
+        this.typedata = data;
+        this.recettes = this.typedata['recettes'];
+        console.log(this.recettes);
+      }, error => {
+        console.log(error);
+      });
+    }
   }
 
   goToTheDetailsRecipePage() {

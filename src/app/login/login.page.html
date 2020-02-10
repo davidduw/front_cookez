@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="header_toolbar header_gradient" border-color="primary">
     <ion-buttons slot="start">
-      <ion-back-button icon="" defaultHref="/" color="light"></ion-back-button>
+      
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-menu-button autoHide="false" color="light" menu="first"></ion-menu-button>
@@ -22,7 +22,7 @@
   </ion-header>
   <ion-content>
     <ion-list>
-      <ion-item (click)="goToTheUserInfoPage()">
+      <ion-item>
         <ion-icon color="primary" sold="start" name="avatar" src="assets/avatar.svg" class="ion-margin-end"></ion-icon>
         Mon compte
       </ion-item>
@@ -53,16 +53,27 @@
 
 <ion-router-outlet main></ion-router-outlet>
 
-<ion-content>
-  <div class="mg_top_10" *ngFor="let type of types | keyvalue">
+<ion-content class="ion-align-items-center">
 
-    <ion-card [routerLink]="[ '/onglets/categorie', type.value.id]" class="ion-text-center mg_bottom_10">
-      <div class="block_home" [style.background-image]="safeImage(type.value.image)">
-        <ion-card-header name="aperitifs">
-          <ion-card-title class="ion-text-uppercase home_titles">{{ type.value.nom }}</ion-card-title>
-        </ion-card-header>
-      </div>
-    </ion-card>
-  
-  </div>
+        <ion-item class="ion-margin-top">
+            <ion-label position="floating">Nom d'utilisateur</ion-label>
+            <ion-input></ion-input>
+        </ion-item>
+
+        <ion-item class="ion-margin-top">
+            <ion-label position="floating">Mot de passe</ion-label>
+            <ion-input type="password"></ion-input>
+        </ion-item>
+
+        <ion-grid>
+          <ion-row class="ion-text-center">
+            <ion-col size="12">
+              <ion-button id="btn_login" shape="round" fill="outline" (click)="login()">Se connecter</ion-button>
+            </ion-col >
+            <ion-col size="12">
+              <ion-label>Vous n'êtes pas encore inscrit ? <a (click)="register()" [routerLink]="'/register/'">Creer un compte</a></ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
 </ion-content>

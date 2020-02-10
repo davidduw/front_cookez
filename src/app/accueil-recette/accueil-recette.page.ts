@@ -1,17 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DomSanitizer} from '@angular/platform-browser'
+import { environment, API_TOKEN } from '../../environments/environment';
+
+
 
 @Component({
   selector: 'app-accueil-recette',
   templateUrl: 'accueil-recette.page.html',
   styleUrls: ['accueil-recette.page.scss']
 })
-export class AccueilRecettePage {
+export class AccueilRecettePage implements OnInit {
 
-  constructor(private router: Router) {}
+  types = {};
 
-  goToTheCategoryPage() {
-    this.router.navigateByUrl('/onglets/categorie');
+  constructor(private router: Router, public http: HttpClient, private sanitizer:DomSanitizer) {
+    console.log("Constructor");
+  }
+
+  ngOnInit(){
+    //console.log("ngOnInit");
+
+    /* Paramètrage du header */
+    var httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization' : 'BEARER '+ API_TOKEN
+      })
+    }
+    
+    /* Requete */
+    this.http.get("http://localhost:8000/api/types", httpOptions)
+      .subscribe(data => {
+        console.log(data);
+        this.types = data;
+      }, error => {
+        console.log(error);
+      });
+  }
+
+  safeImage(image){
+
+    return this.sanitizer.bypassSecurityTrustStyle('url('+image+')');
+  }
+
+  goToTheCategoryPage(idtype) {
+    this.router.navigateByUrl('/onglets/categorie', { state: { idtype:idtype , name:"idtype" } });
   }
 
   goToTheUserInfoPage() {
