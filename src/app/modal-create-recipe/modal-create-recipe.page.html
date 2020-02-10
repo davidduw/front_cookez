@@ -1,0 +1,189 @@
+<!-- Header : button close + category title -->
+<ion-content>
+  <div class="modal_create_header">
+    <div class="modal_create_header_close" (click)="closeModal()">
+      <img class="modal_create_header_close_icon" src="/assets/icon/cross.svg" />
+    </div>
+    <div class="modal_create_header_title">
+      Votre recette
+    </div>
+  </div>
+
+  <!-- Form create recipe -->
+  <form onsubmit="processForm(event)">
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+          <ion-label class="create_recipe_label" position="stacked">Nom de la recette</ion-label>
+      </div>
+      <div class="create_recipe_value_row">
+          <ion-input class="create_recipe_value" required type="text" maxlength="50" placeholder="Ex: Poulet basquaise" oninput="handleFirstNameValue(event)"></ion-input>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Type de plat</ion-label>
+      </div>
+      <div class="create_recipe_value_row">
+        <ion-select class="create_recipe_value" ok-text="Valider" cancel-text="Annuler">
+          <ion-select-option value="aperitif">Apéritif</ion-select-option>
+          <ion-select-option value="entree" selected>Entrée</ion-select-option>
+          <ion-select-option value="plat">Plat</ion-select-option>
+          <ion-select-option value="dessert">Dessert</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Nombre de portions</ion-label>
+        <p class="create_recipe_example">Ex : 5 pièces / 3 personnes</p>
+      </div>
+      <div class="create_recipe_value_display">
+        <div class="create_recipe_value_row create_recipe_first_col">
+            <ion-input class="create_recipe_value" placeholder="2"></ion-input>
+        </div>
+        <div class="create_recipe_value_row create_recipe_second_col">
+            <ion-input class="create_recipe_value" placeholder="personne(s), pièce(s), ..."></ion-input>
+        </div>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Niveau de difficulté</ion-label>
+      </div>
+      <div class="create_recipe_segment_row">
+        <ion-segment>
+          <ion-segment-button checked>
+            <ion-label class="create_recipe_value">Facile</ion-label>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-label class="create_recipe_value">Moyen</ion-label>
+          </ion-segment-button>
+          <ion-segment-button>
+            <ion-label class="create_recipe_value">Difficile</ion-label>
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+      
+    </div>
+    
+    <div class="line"></div>
+
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Temps de préparation</ion-label>
+      </div>
+      <div class="create_recipe_value_display">
+        <div class="create_recipe_time_col">
+          <div class="create_recipe_time_input create_recipe_value_row">
+            <ion-input class="create_recipe_value" type="number" inputmode="numeric" placeholder="1"></ion-input>
+          </div>
+          <span>heure(s)</span>
+        </div>
+        <div class="create_recipe_time_col">
+          <div class="create_recipe_time_input create_recipe_value_row">
+          <ion-input class="create_recipe_value" type="number" inputmode="numeric" placeholder="30"></ion-input>
+          </div>
+          <span>minute(s)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="line"></div>
+    
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Étiquettes</ion-label>
+      </div>
+      <ul class="ks-cboxtags modal_create_flex">
+        <li class="modal_create_card">
+          <input type="checkbox" id="glutenfree" value="glutenfree">
+          <label class="modal_create_card_text" for="glutenfree">Sans gluten</label>
+        </li>
+    
+        <li class="modal_create_card">
+          <input type="checkbox" id="protein" value="protein">
+          <label class="modal_create_card_text" for="protein">Protéïné</label>
+        </li>
+    
+        <li class="modal_create_card">
+            <input type="checkbox" id="light" value="light">
+            <label class="modal_create_card_text" for="light">Allégé</label>
+    
+        <li class="modal_create_card">
+          <input type="checkbox" id="lactosefree" value="lactosefree">
+          <label class="modal_create_card_text" for="lactosefree">Sans lactose</label>
+        </li>
+      </ul>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Ingrédients</ion-label>
+        <p class="create_recipe_example">Ex : 3 carottes / 500gr de riz / 30 cl de lait</p>
+      </div>
+      <div class="create_recipe_value_display">
+          <div class="create_recipe_quantity_input create_recipe_value_row">
+            <ion-input class="create_recipe_value" type="number" inputmode="numeric" placeholder="Quantité"></ion-input>
+          </div>
+          <span>(de)</span>
+          <div class="create_recipe_ingredient_input create_recipe_value_row">
+            <ion-input class="create_recipe_value" type="text" inputmode="text" placeholder="Ingrédient"></ion-input>
+          </div>
+          <img src="assets/icon/add_ingredient.svg" width="30px"/>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Étapes</ion-label>
+      </div>
+      <div class="create_recipe_value_display">
+        <div class="create_recipe_step_input create_recipe_value_row">
+          <ion-input class="create_recipe_value" type="text" inputmode="text" placeholder="Ex : Préchauffez votre four à 150°."></ion-input>
+        </div>
+        <img src="assets/icon/add_ingredient.svg" width="30px"/>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="create_recipe_form_section">
+      <div class="create_recipe_label_row">
+        <ion-label class="create_recipe_label" position="stacked">Temps de cuisson</ion-label>
+      </div>
+      <div class="create_recipe_value_display">
+        <div class="create_recipe_time_col">
+          <div class="create_recipe_time_input create_recipe_value_row">
+            <ion-input class="create_recipe_value" type="number" inputmode="numeric" placeholder="1"></ion-input>
+          </div>
+          <span>heure(s)</span>
+        </div>
+        <div class="create_recipe_time_col">
+          <div class="create_recipe_time_input create_recipe_value_row">
+          <ion-input class="create_recipe_value" type="number" inputmode="numeric" placeholder="30"></ion-input>
+          </div>
+          <span>minute(s)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button save -->
+    <ion-button expand="full" type="submit" fill="clear" color="primary" (click)="presentToast()">
+      Enregistrer
+    </ion-button>
+  </form>
+</ion-content>
+  

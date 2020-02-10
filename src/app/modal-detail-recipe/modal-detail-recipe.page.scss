@@ -1,0 +1,32 @@
+// Colors swiper pagination bullets
+ion-slides {
+    --bullet-background: var(--ion-color-primary);
+    --bullet-background-active: var(--ion-color-primary);
+}
+.modal_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    .modal_slides_main_img {
+        display: flex;
+        justify-content: center;
+    }
+    .modal_slides_block {
+        display: flex;
+        align-items: center;
+        .modal_slides_cards {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            padding: 0 25px;
+            .modal_slides_title {
+                color: var(--ion-color-primary);
+                font-weight: bold;
+            }
+            .modal_slides_text {
+                text-align: justify;
+            }
+        }
+    }
+}

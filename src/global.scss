@@ -1,0 +1,81 @@
+// http://ionicframework.com/docs/theming/
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
+@import '~@ionic/angular/css/display.css';
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
+
+.detail_recipe_page p, .fridge_empty_page p, .modal_block p {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header_toolbar {
+	box-shadow: 1px 1px 7px 1px #003554;
+}
+
+.header_gradient {
+	--background: -webkit-gradient(linear, left top, right top, from(#0477b8), to(#6fa3ed));
+	--background: -webkit-linear-gradient(left, #0477b8, #6fa3ed);
+	--background: -o-linear-gradient(left, #0477b8, #6fa3ed);
+	--background: linear-gradient(to right, #0477b8, #6fa3ed);
+}
+
+.header_flex_logo {
+	display: flex;
+	justify-content: center;
+	.header_width_logo {
+		width: 90px;
+	}
+}
+
+.header_flex_connexion {
+	display: flex;
+	align-items: center;
+	.header_width_connexion {
+		width: 30px;
+		height: auto;
+	}
+}
+
+.btn_size {
+	border-radius: 25px;
+	height: 45px;
+	width: 85%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.page_title {
+	text-transform: uppercase;
+	color: var(--ion-color-primary);
+	margin: 20px 10px 10px 20px;
+}
+
+.modal_block_title {
+    text-transform: uppercase;
+    color: var(--ion-color-primary);
+    margin: 25px;
+    position: absolute;
+}
+
+.ion_card_margin {
+	margin: 0;
+}
+
+ion-toast.modal_ingr_toast {
+	font-size: 18px;
+	text-align: center;
+}
+
+.new_searchbar {
+	--icon-color: var(--ion-color-primary);
+	--clear-button-color: var(--ion-color-primary);
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	padding: 15px 20px 0 20px;
+}

@@ -1,0 +1,54 @@
+ion-card {
+	padding: 0;
+}
+
+.mg_bottom_10 {
+	margin-bottom: 10px;
+	margin-top: 0px;
+}
+
+.mg_top_10 {
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+.block_home {
+	width: 100%;
+	padding: 25px;
+
+	.home_titles {
+		color: #036096;
+		font-size: 30px;
+		font-style: bold;
+	}
+}
+
+#aperitifs_img {
+	background: url("/assets/img/apero.png");
+	@extend .img_position;
+}
+
+#entrees_img {
+	background: url("/assets/img/entree.png");
+	@extend .img_position ;
+}
+
+#plats_img {
+	background: url("/assets/img/plat.png");
+	@extend .img_position ;
+}
+
+#desserts_img {
+	background: url("/assets/img/dessert.png");
+	@extend .img_position ;
+}
+
+.copyright {
+	font-size: 10px;
+}
+
+.img_position {
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}

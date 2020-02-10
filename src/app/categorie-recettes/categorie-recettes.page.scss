@@ -1,0 +1,40 @@
+.list_recipe_card_block {
+    background-color: white;
+    border-radius: 10px;
+    .list_recipe_card {
+      .list_recipe_card_infos {
+        padding: 5px 5px 10px 5px;
+        .list_recipe_card_title {
+          margin: 10px 0;
+          font-size: 20px;
+          color: black;
+          text-align: center;
+        }
+      }
+      .list_recipe_info_block {
+        display: flex;
+        justify-content: space-around;
+        .list_recipe_info {
+          color: black;
+          font-size: 14px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 20px;
+          }
+          .list_recipe_info_text {
+            margin-top: 10px;
+          }
+        }
+      }
+      .list_recipe_img {
+        height: 105px;
+        background: url('/assets/img/poulet_basquaise.png');
+        background-position: center;
+        background-size: cover;
+      }
+    }
+  }
+  

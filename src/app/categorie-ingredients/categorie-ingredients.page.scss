@@ -1,0 +1,21 @@
+.ingr_category_card {
+  border-radius: 10px;
+  .ingre_category_card_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 125px;
+    padding: 5px;
+    background-color: white;
+    .ingre_category_card_img {
+      width: 60px;
+    }
+    .ingre_category_card_title {
+      font-size: 18px;
+      margin: 10px 0 0 0;
+      color: var(--ion-color-primary);
+      text-align: center;
+    }
+  }
+}

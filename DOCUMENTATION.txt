@@ -1,0 +1,7 @@
+Installer NodeJS
+Lancer la commande "npm install -g cordova"
+Lancer la commande "npm install -g ionic"
+
+Pour créer un projet -> "ionic start myApp tabs" 
+
+Pour lancer un projet déjà fait -> "ionic serve" (dans le dossier du projet)

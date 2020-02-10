@@ -1,0 +1,102 @@
+.detail_recipe_page {
+	.detail_recipe_first_block {
+		height: 355px;
+		.detail_recipe_top_img {
+			height: 220px;
+			background: url('/assets/img/poulet_basquaise.png');
+			background-position: center;
+			background-size: cover;
+		}
+		.detail_recipe_main_block {
+			display: flex;
+			justify-content: center;
+			.detail_recipe_main_info {
+				background: white;
+				box-shadow: 0px 10px 5px 5px #e0e0e0;
+				padding: 15px;
+				border-radius: 20px;
+				position: absolute;
+				top: 140px;
+				width: 90%;
+				.detail_recipe_title{
+					margin: 0;
+				}
+				.detail_recipe_info {
+					color: black;
+					font-size: 14px;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					.detail_recipe_info_text {
+						margin-top: 10px;
+					}
+				}
+				
+				.detail_recipe_hashtags_block {
+					display: flex;
+					justify-content: space-around;
+					flex-wrap: wrap;
+					.detail_recipe_hashtags_text {
+						font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+						font-size: 14px;
+						background-color: var(--ion-color-tertiary);
+						color: white;
+						border-radius: 15px;
+						padding: 5px 5px;
+						margin-bottom: 5px;
+					}
+				}
+			}
+		}
+	}
+	
+	.detail_recipe_description {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.detail_recipe_btn_modal {
+			background-color: var(--ion-color-secondary);
+			.detail_recipe_btn_modal_text {
+				margin-top: 5px;
+				color: white;
+				font-size: 16px;
+				text-transform: uppercase;
+				letter-spacing: 1px;
+			}
+		}
+		.detail_recipe_width {
+			width: 90%;
+			.detail_accordion_open {
+				display: flex;
+				flex-direction: column;
+				align-items: normal;
+			}
+			.detail_recipe_description_block_title {
+				display: flex;
+				justify-content: space-between;
+				width: 100%;
+				.detail_recipe_description_title_flex {
+					display: flex;
+					.detail_recipe_description_title {
+						font-size: 22px;
+						font-weight: bold;
+						text-transform: none;
+						color: var(--ion-color-primary);
+						text-align: left;
+						margin-left: 10px;
+					}
+				}
+			}
+			.detail_accordion_second_lvl {
+				margin-left: 10px;
+				font-size: 16px;
+				text-transform: none;
+			}
+			.line {
+				height: 3px;
+				background: linear-gradient(to right, rgba(200,200,200,0.1) 0%, #6fa3ed 25%, #4392f1 50%, #6fa3ed 75%, rgba(200,200,200,0.1) 100% );
+			}
+		}
+	}
+}

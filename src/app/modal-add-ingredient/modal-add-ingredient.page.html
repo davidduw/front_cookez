@@ -1,0 +1,63 @@
+<!-- Header : button close + category title -->
+<ion-content color="medium">
+  <div class="modal_ingr_header">
+    <div class="modal_ingr_header_close" (click)="closeModalAddIngredients()">
+      <img class="modal_ingr_header_close_icon" src="/assets/icon/cross.svg" />
+    </div>
+    <div class="modal_ingr_header_title">
+      Légumes 
+    </div>
+  </div>
+
+  <!-- Searchbar -->
+  <ion-searchbar class="new_searchbar" clearIcon placeholder="Rechercher un aliment"></ion-searchbar>
+  
+  <!-- List of ingredients by category -->
+  <ul class="ks-cboxtags modal_ingr_flex">
+
+    <li class="modal_ingr_card">
+      <input type="checkbox" id="avocat" value="Avocat">
+      <label class="modal_ingr_card_text" for="avocat">Avocat</label>
+    </li>
+
+    <li class="modal_ingr_card">
+      <input type="checkbox" id="carotte" value="Carotte">
+      <label class="modal_ingr_card_text" for="carotte">Carotte</label>
+    </li>
+
+    <li class="modal_ingr_card">
+      <input type="checkbox" id="concombre" value="Concombre">
+      <label class="modal_ingr_card_text" for="concombre">Concombre</label>
+    </li>
+
+    <li class="modal_ingr_card">
+      <input type="checkbox" id="endive" value="Endive">
+      <label class="modal_ingr_card_text" for="endive">Endive</label>
+    </li>
+
+    <li class="modal_ingr_card">
+      <input type="checkbox" id="haricots verts" value="Haricots verts">
+      <label class="modal_ingr_card_text" for="haricots verts">Haricots verts</label>
+    </li>
+
+    <li class="modal_ingr_card">
+      <input type="checkbox" id="poivron" value="Poivron">
+      <label class="modal_ingr_card_text" for="poivron">Poivron</label>
+    </li>
+
+    <li class="modal_ingr_card">
+      <input type="checkbox" id="salade" value="Salade">
+      <label class="modal_ingr_card_text" for="salade">Salade</label>
+    </li>
+   
+  </ul>
+</ion-content> 
+
+<!-- Button add to fridge -->
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-button expand="full" fill="clear" color="light" (click)="presentToast()">
+      Ajouter à mon frigo
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,42 @@
+<ion-content>
+  <!-- Recipe's title -->
+  <h1 class="modal_block_title">Poulet basquaise</h1>
+  <!-- Block modal : main img + slides -->
+  <div class="modal_block">
+      <div class="modal_slides_main_img">
+        <img src="assets/img/cooking_sbs.svg" width="150px"/>
+      </div>
+      <div class="modal_slides_block">
+        <ion-slides pager="true">
+          <ion-slide class="modal_slides_cards">
+            <h2 class="modal_slides_title">Étape 1</h2>
+            <p class="modal_slides_text">Hacher l'oignon et l'ail. Couper les tomates en morceaux et détailler les poivrons en lanières.</p>
+          </ion-slide>
+      
+          <ion-slide class="modal_slides_cards">
+            <h2 class="modal_slides_title">Étape 2</h2>
+            <p class="modal_slides_text">Faire chauffer 4 cuillères à soupe d'huile dans une cocotte. Y faire dorer les oignons, l'ail et les poivron. Laisser cuire 5 min. </p>
+          </ion-slide>
+      
+          <ion-slide class="modal_slides_cards">
+            <h2 class="modal_slides_title">Étape 3</h2>
+            <p class="modal_slides_text">Hacher l'oignon et l'ail. Couper les tomates en morceaux et détailler les poivrons en lanières. Ajouter les tomates à la cocotte, saler, poivrer. Couvrir et laisser mijoter 20 min. </p>
+          </ion-slide>
+    
+          <ion-slide class="modal_slides_cards">
+            <h2 class="modal_slides_title">Étape 4</h2>
+            <p class="modal_slides_text">Ajouter les tomates à la cocotte, saler, poivrer. Couvrir et laisser mijoter 20 min. </p>
+          </ion-slide>
+        </ion-slides>
+      </div>
+  </div>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <!-- Button close modal -->
+    <ion-button expand="full" fill="clear" color="light" (click)="closeModal()">
+      Fermer le suivi pas à pas
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
