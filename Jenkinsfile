@@ -1,8 +1,6 @@
 pipeline {
     agent any
 
-    deleteDir()
-
     tools {nodejs "node"}
 
     stages {
