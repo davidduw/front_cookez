@@ -1,11 +1,11 @@
 pipeline {
     agent any
 
-    tools {nodejs "node"}
-
     environment {
         PATH='/usr/local/bin:/usr/bin:/bin'
     }
+
+    tools {nodejs "node"}
 
     stages {
         stage('Setup'){
