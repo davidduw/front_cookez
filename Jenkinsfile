@@ -8,7 +8,6 @@ pipeline {
     stages {
         stage('Setup'){
             steps {
-                sh 'npm install -g cordova ionic'
                 sh 'npm install'
                 sh 'npm rebuild node-sass'
             }
