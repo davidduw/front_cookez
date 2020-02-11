@@ -8,14 +8,14 @@ pipeline {
     stages {
         stage('Setup'){
             steps {
-                sh 'npm install'
-                sh 'npm rebuild node-sass'
+                pwsh 'npm install'
+                pwsh 'npm rebuild node-sass'
             }
         }
 
         stage('Build'){
             steps {
-                sh 'ionic serve'
+                pwsh 'ionic serve'
             }
         }
     }
