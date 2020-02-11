@@ -1,7 +1,11 @@
 pipeline {
     agent any
 
-    tools {nodejs "node",ionic "ionic"}
+    tools {nodejs "node"}
+
+    environment {
+        PATH='/usr/local/bin:/usr/bin:/bin'
+    }
 
     stages {
         stage('Setup'){
