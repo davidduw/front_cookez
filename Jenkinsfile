@@ -16,7 +16,7 @@ pipeline {
 
         stage('Build'){
             steps {
-                sh 'nohup ionic serve --nobrowser --nolivereload'
+                sh 'ionic serve'
             }
         }
     }
