@@ -11,13 +11,13 @@ pipeline {
                 sh 'npm install -g @angular/cli'
                 sh 'npm install'
                 sh 'npm rebuild node-sass'
-                sh 'npm config set prefix'
             }
         }
 
         stage('Build'){
             steps {
                 sh 'ionic build'
+                sh 'ionic serve'
             }
         }
     }
