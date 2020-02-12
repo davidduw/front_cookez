@@ -11,15 +11,12 @@ pipeline {
                 sh 'npm install -g @angular/cli'
                 sh 'npm install'
                 sh 'npm rebuild node-sass'
-                sh 'echo ----------------------- COUCOU -----------------------'
-                sh 'echo $PATH'
             }
         }
 
         stage('Build'){
             steps {
-                sh 'echo $PATH'
-                sh 'ionic serve'
+                sh 'nohup ionic serve --nobrowser --nolivereload'
             }
         }
     }
