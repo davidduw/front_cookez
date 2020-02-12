@@ -17,7 +17,7 @@ pipeline {
 
         stage('Build'){
             steps {
-                sh 'ionic serve'
+                sh 'ionic build'
             }
         }
     }
