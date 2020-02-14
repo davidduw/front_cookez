@@ -1,4 +1,4 @@
-FROM node:12.14.1
+FROM node:13.8.0
 
 LABEL MAINTAINER="David Duwiquet<david.duwiquet@gmail.com>"
 WORKDIR /usr/src/app
@@ -9,4 +9,4 @@ RUN npm rebuild node-sass
 
 EXPOSE 8100
 ENTRYPOINT [ "ionic" ]
-CMD [ "serve", "8100", "--address", "0.0.0.0" ]
+CMD [ "serve", "--address", "127.0.0.1"]
