@@ -8,7 +8,7 @@
 
 <hr>
 
-<h1>Pour faire un docker front<h1>
+<h1>Pour faire un docker front</h1>
 
 Build l'image:
 docker build -t ionic_cookez .
