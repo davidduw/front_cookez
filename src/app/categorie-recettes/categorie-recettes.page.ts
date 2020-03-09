@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute  } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment, API_TOKEN } from '../../environments/environment';
+import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
 
 
 
@@ -44,7 +44,7 @@ export class CategorieRecettesPage implements OnInit {
       }
 
       /* Requete */
-      this.http.get("http://localhost:8000/api/types/"+this.idtype, httpOptions)
+      this.http.get(BACK_URL+"api/types/"+this.idtype, httpOptions)
       .subscribe(data => {
         
         this.typedata = data;
