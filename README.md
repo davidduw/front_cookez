@@ -1,3 +1,11 @@
+Installer NodeJS
+Lancer la commande "npm install -g cordova"
+Lancer la commande "npm install -g ionic"
+Lancer la commande "npm install -g node-sass"
+
+Pour lancer le projet -> "ionic serve"
+
+
 Pour faire un docker front
 Build l'image:
 
