@@ -1,8 +1,8 @@
 <h1>Mise en place du front</h1>
--Installer NodeJS
--Lancer la commande "npm install -g cordova"
--Lancer la commande "npm install -g ionic"
--Lancer la commande "npm install -g node-sass"
+-Installer NodeJS<br>
+-Lancer la commande "npm install -g cordova"<br>
+-Lancer la commande "npm install -g ionic"<br>
+-Lancer la commande "npm install -g node-sass"<br>
 
 -Pour lancer le projet -> "ionic serve"
 
