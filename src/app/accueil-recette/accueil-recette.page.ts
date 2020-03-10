@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser'
 import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
@@ -16,12 +16,12 @@ export class AccueilRecettePage implements OnInit {
   types = {};
 
   constructor(private router: Router, public http: HttpClient, private sanitizer: DomSanitizer) {
-    console.log("Constructor");
+    this.getTypes();
   }
 
-  ngOnInit() {
-    //console.log("ngOnInit");
+  ngOnInit() { }
 
+  getTypes() {
     /* Paramètrage du header */
     var httpOptions = {
       headers: new HttpHeaders({
@@ -42,12 +42,19 @@ export class AccueilRecettePage implements OnInit {
   }
 
   safeImage(image) {
-
-    return this.sanitizer.bypassSecurityTrustStyle('url(' + image + ')');
+    if (image != undefined) {
+      return this.sanitizer.bypassSecurityTrustStyle('url(' + image + ')');
+    }
   }
 
   goToTheCategoryPage(idtype) {
-    this.router.navigateByUrl('/onglets/categorie', { state: { idtype: idtype, name: "idtype" } });
+    let navigationExtras: NavigationExtras = {
+      state: {
+        idtype: idtype,
+        name: "idtype"
+      }
+    };
+    this.router.navigate(['/onglets/categorie'], navigationExtras);
   }
 
   goToTheUserInfoPage() {

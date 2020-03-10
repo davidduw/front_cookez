@@ -73,11 +73,15 @@
                   <div class="list_recipe_info_block">
                     <div class="list_recipe_info">
                       <img src="assets/icon/time.svg" width="30px" />
-                      <span class="list_recipe_info_text">1H30</span>
+                      <span class="list_recipe_info_text">{{recette.value.tempsTotal}}</span>
                     </div>
                     <div class="list_recipe_info">
                       <img src="assets/icon/level.svg" width="30px" />
-                      <span class="list_recipe_info_text">Facile</span>
+                      <span class="list_recipe_info_text">{{ recette.value.difficulte }}</span>
+                    </div>
+                    <div class="list_recipe_info">
+                      <img src="assets/icon/favorite.svg" width="30px" />
+                      <span class="list_recipe_info_text">{{ recette.value.noteMoyenne }}</span>
                     </div>
                   </div>
                 </div>
