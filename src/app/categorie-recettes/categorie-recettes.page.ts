@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
+import { DomSanitizer } from '@angular/platform-browser';
 
 
 
@@ -18,7 +19,7 @@ export class CategorieRecettesPage implements OnInit {
   recettes = [];
   recettesFiltered = [];
 
-  constructor(private router: Router, private activatedroute: ActivatedRoute, public http: HttpClient) {
+  constructor(private router: Router, private activatedroute: ActivatedRoute, public http: HttpClient, private sanitizer: DomSanitizer) {
     this.activatedroute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
         this.idtype = this.router.getCurrentNavigation().extras.state.idtype;
@@ -95,6 +96,12 @@ export class CategorieRecettesPage implements OnInit {
       })
     } else {
       this.recettesFiltered = this.recettes;
+    }
+  }
+
+  safeImage(image) {
+    if (image != undefined) {
+      return this.sanitizer.bypassSecurityTrustStyle('url(' + image + ')');
     }
   }
 
