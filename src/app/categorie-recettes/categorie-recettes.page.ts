@@ -16,6 +16,7 @@ export class CategorieRecettesPage implements OnInit {
   idtype: string;
   typedata = {};
   recettes = [];
+  recettesFiltered = [];
 
   constructor(private router: Router, private activatedroute: ActivatedRoute, public http: HttpClient) {
     this.activatedroute.queryParams.subscribe(params => {
@@ -75,11 +76,26 @@ export class CategorieRecettesPage implements OnInit {
           recette.notes.forEach(note => {
             sommeNotes += note.etoiles;
           });
-          recette.noteMoyenne = Math.round(sommeNotes/nbNotes * 10) / 10;
+          recette.noteMoyenne = Math.round(sommeNotes / nbNotes * 10) / 10;
         });
+        this.recettesFiltered = this.recettes;
       }, error => {
         console.log(error);
       });
+  }
+
+  getFilteredRecettes(ev: any) {
+    // set val to the value of the searchbar
+    const val = ev.target.value;
+
+    // if the value is an empty string don't filter the items
+    if (val && val.trim() != '') {
+      this.recettesFiltered = this.recettes.filter((recette) => {
+        return (recette.nom.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    } else {
+      this.recettesFiltered = this.recettes;
+    }
   }
 
   goToTheDetailsRecipePage() {
