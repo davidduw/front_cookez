@@ -34,7 +34,6 @@ export class AccueilRecettePage implements OnInit {
     /* Requete */
     this.http.get(BACK_URL + "api/types", httpOptions)
       .subscribe(data => {
-        console.log(data);
         this.types = data;
       }, error => {
         console.log(error);
