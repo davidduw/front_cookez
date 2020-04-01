@@ -61,26 +61,26 @@
       <!-- Main block -->
       <div class="detail_recipe_main_block">
         <div class="detail_recipe_main_info">
-          <h1 class="detail_recipe_title">Poulet basquaise</h1>
+        <h1 class="detail_recipe_title">{{ nom }}</h1>
           <ion-grid>
             <!-- Time / lvl / number of people -->
             <ion-row>
               <ion-col>
                 <div class="detail_recipe_info">
                   <img src="assets/icon/time.svg" width="30px" />
-                  <span class="detail_recipe_info_text">1H30</span>
+                  <span class="detail_recipe_info_text">{{ tempsTotal }}</span>
                 </div>
               </ion-col>
               <ion-col>
                 <div class="detail_recipe_info">
                   <img src="assets/icon/level.svg" width="30px" />
-                  <span class="detail_recipe_info_text">Facile</span>
+                <span class="detail_recipe_info_text">{{ difficulte }}</span>
                 </div>
               </ion-col>
               <ion-col>
                 <div class="detail_recipe_info">
                   <img src="assets/icon/number.svg" width="30px" />
-                  <span class="detail_recipe_info_text">2 pers.</span>
+                  <span class="detail_recipe_info_text">{{ nbrPersonnes }}</span>
                 </div>
               </ion-col>
               <ion-col>
@@ -108,8 +108,76 @@
         <span class="detail_recipe_btn_modal_text">Cuisinez cette recette pas à pas</span>
       </div>
 
-      <!-- First level -->
+      <!-- Ingredients -->
       <ion-list class="detail_recipe_width">
+        <ion-list-header class="detail_accordion_open" no-padding >
+          <div class="detail_recipe_description_block_title" ion-item detail-none>
+            <div class="detail_recipe_description_title_flex">
+                <img src="assets/icon/ingredient.svg" width="30px" />
+                <h1 class="detail_recipe_description_title">
+                  Ingrédients
+                </h1>
+            </div>
+            <!-- <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/> -->
+            <img src="assets/icon/arrow-down.svg" width="30px"/>
+          </div>
+          <div>
+
+          </div>
+          <div class="line"></div>
+        </ion-list-header>
+      </ion-list>
+
+      <!-- Préparation -->
+      <ion-list class="detail_recipe_width">
+        <ion-list-header class="detail_accordion_open" no-padding >
+          <div class="detail_recipe_description_block_title" ion-item detail-none>
+            <div class="detail_recipe_description_title_flex">
+                <img src="assets/icon/prepare.svg" width="30px" />
+                <h1 class="detail_recipe_description_title">
+                  Préparation
+                </h1>
+            </div>
+            <!-- <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/> -->
+            <img src="assets/icon/arrow-down.svg" width="30px"/>
+          </div>
+          <div>
+            <ion-list class="detail_accordion_second_lvl">
+              <p *ngFor="let etape of etapesPreparation | keyvalue">
+                {{ etape.value.etapeText }}
+              </p>
+            </ion-list>
+          </div>
+          <div class="line"></div>
+        </ion-list-header>
+      </ion-list>
+
+      <!-- Cuisson -->
+      <ion-list class="detail_recipe_width">
+        <ion-list-header class="detail_accordion_open" no-padding >
+          <div class="detail_recipe_description_block_title" ion-item detail-none>
+            <div class="detail_recipe_description_title_flex">
+                <img src="assets/icon/cooking.svg" width="30px" />
+                <h1 class="detail_recipe_description_title">
+                  Cuisson
+                </h1>
+            </div>
+            <!-- <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/> -->
+            <img src="assets/icon/arrow-down.svg" width="30px"/>
+          </div>
+          <div>
+            <ion-list class="detail_accordion_second_lvl">
+              <p *ngFor="let etape of etapesCuisson | keyvalue">
+                {{ etape.value.etapeText }}
+              </p>
+            </ion-list>
+          </div>
+          <div class="line"></div>
+        </ion-list-header>
+      </ion-list>
+
+      <!-- First level -->
+      <!-- <ion-list class="detail_recipe_width">
         <ion-list-header class="detail_accordion_open" *ngFor="let item of information; let i = index" no-padding>
           <div class="detail_recipe_description_block_title" ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}" ngModel="myVar">
             <div class="detail_recipe_description_title_flex" [ngSwitch]="item.name">
@@ -117,21 +185,22 @@
                 <img *ngSwitchCase="'Préparation'" src="assets/icon/prepare.svg" width="30px" />
                 <img *ngSwitchCase="'Cuisson'" src="assets/icon/cooking.svg" width="30px" />
                 <h1 class="detail_recipe_description_title">
-                  {{ item.name }}
+               
                 </h1>
             </div>
             <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/>
             <img src="assets/icon/arrow-down.svg" width="30px" *ngIf="!item.open"/>
           </div>
-          <ion-list class="detail_accordion_second_lvl" *ngIf="item.children && item.open">
-            <!-- Second level -->
-            <p *ngFor="let child of item.children; let j = index">
-              {{ child.name }}
-            </p>
-          </ion-list>
+          <div *ngFor="let etape of etapePreparation | keyvalue">
+            <ion-list class="detail_accordion_second_lvl" *ngIf="item.children && item.open">
+              <p>
+                {{ etape.description }}
+              </p>
+            </ion-list>
+          </div>
           <div class="line"></div>
         </ion-list-header>
-      </ion-list>
+      </ion-list> -->
     </div>
   </div>
 </ion-content>
