@@ -55,36 +55,38 @@
 
 <ion-content color="medium">
   <!-- Searchbar -->
-  <ion-searchbar class="new_searchbar" clearIcon placeholder="Rechercher une recette"></ion-searchbar>
-    <!-- Recipe List Page Title -->
-    <h1 class="page_title">{{ typedata.nom }}</h1>
-      <!-- First row -->
-      <ion-row *ngIf="recettes.length > 0">
-        <!-- First card -->
-  
-          <ion-col size="6" *ngFor="let recette of recettes | keyvalue">
-            <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
-              <div class="list_recipe_card">
-                <div class="list_recipe_img">
-                  <!-- Add img css -->  
-                </div>
-                <div class="list_recipe_card_infos">
-                  <h1 class="list_recipe_card_title">{{ recette.value.nom }}</h1>
-                  <div class="list_recipe_info_block">
-                    <div class="list_recipe_info">
-                      <img src="assets/icon/time.svg" width="30px" />
-                      <span class="list_recipe_info_text">1H30</span>
-                    </div>
-                    <div class="list_recipe_info">
-                      <img src="assets/icon/level.svg" width="30px" />
-                      <span class="list_recipe_info_text">Facile</span>
-                    </div>
-                  </div>
-                </div>
+  <ion-searchbar type="text" debounce="500" (ionInput)="getFilteredRecettes($event)" clearIcon
+    placeholder="Rechercher une recette"></ion-searchbar>
+  <!-- Recipe List Page Title -->
+  <h1 class="page_title">{{ typedata.nom }}</h1>
+  <!-- First row -->
+  <ion-row *ngIf="recettesFiltered.length > 0">
+    <!-- First card -->
+    <ion-col size="6" *ngFor="let recette of recettesFiltered | keyvalue">
+      <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage()">
+        <div class="list_recipe_card">
+          <div class="list_recipe_img" [style.background-image]="safeImage(recette.value.image)">
+            <!-- Add img css -->
+          </div>
+          <div class="list_recipe_card_infos">
+            <h1 class="list_recipe_card_title">{{ recette.value.nom }}</h1>
+            <div class="list_recipe_info_block">
+              <div class="list_recipe_info">
+                <img src="assets/icon/time.svg" width="30px" />
+                <span class="list_recipe_info_text">{{ recette.value.tempsTotal }}</span>
               </div>
-            </ion-card>
-          </ion-col>
-
-
-    </ion-row>
-  </ion-content>
+              <div class="list_recipe_info">
+                <img src="assets/icon/level.svg" width="30px" />
+                <span class="list_recipe_info_text">{{ recette.value.difficulte }}</span>
+              </div>
+              <div class="list_recipe_info">
+                <img src="assets/icon/favorite.svg" width="30px" />
+                <span class="list_recipe_info_text">{{ recette.value.noteMoyenne }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+</ion-content>

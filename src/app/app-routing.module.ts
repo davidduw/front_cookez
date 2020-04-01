@@ -3,7 +3,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', loadChildren: './onglets/onglets.module#OngletsPageModule' },
-  { path: 'onglets/categorie/:idtype', loadChildren: './categorie-recettes/categorie-recettes.module#CategorieRecettesPageModule' },
+  { path: 'onglets/categorie/', loadChildren: './categorie-recettes/categorie-recettes.module#CategorieRecettesPageModule' },
   { path: 'user-info', loadChildren: './user-info/user-info.module#UserInfoPageModule' },
   { path: 'onglets', loadChildren: './onglets/onglets.module#OngletsPageModule' },
   { path: 'details-recette', loadChildren: './details-recette/details-recette.module#DetailsRecettePageModule' },

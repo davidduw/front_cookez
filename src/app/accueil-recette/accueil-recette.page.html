@@ -56,9 +56,9 @@
 <ion-content>
   <div class="mg_top_10" *ngFor="let type of types | keyvalue">
 
-    <ion-card [routerLink]="[ '/onglets/categorie', type.value.id]" class="ion-text-center mg_bottom_10">
+    <ion-card class="ion-text-center mg_bottom_10" (click)="goToTheCategoryPage(type.value.id)">
       <div class="block_home" [style.background-image]="safeImage(type.value.image)">
-        <ion-card-header name="aperitifs">
+        <ion-card-header>
           <ion-card-title class="ion-text-uppercase home_titles">{{ type.value.nom }}</ion-card-title>
         </ion-card-header>
       </div>

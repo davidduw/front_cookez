@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { DomSanitizer} from '@angular/platform-browser'
-import { environment, API_TOKEN } from '../../environments/environment';
+import { DomSanitizer } from '@angular/platform-browser'
+import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
 
 
 
@@ -15,39 +15,45 @@ export class AccueilRecettePage implements OnInit {
 
   types = {};
 
-  constructor(private router: Router, public http: HttpClient, private sanitizer:DomSanitizer) {
-    console.log("Constructor");
+  constructor(private router: Router, public http: HttpClient, private sanitizer: DomSanitizer) {
+    this.getTypes();
   }
 
-  ngOnInit(){
-    //console.log("ngOnInit");
+  ngOnInit() { }
 
+  getTypes() {
     /* Paramètrage du header */
     var httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization' : 'BEARER '+ API_TOKEN
+        'Authorization': 'BEARER ' + API_TOKEN
       })
     }
-    
+
     /* Requete */
-    this.http.get("http://localhost:8000/api/types", httpOptions)
+    this.http.get(BACK_URL + "api/types", httpOptions)
       .subscribe(data => {
-        console.log(data);
         this.types = data;
       }, error => {
         console.log(error);
       });
   }
 
-  safeImage(image){
-
-    return this.sanitizer.bypassSecurityTrustStyle('url('+image+')');
+  safeImage(image) {
+    if (image != undefined) {
+      return this.sanitizer.bypassSecurityTrustStyle('url(' + image + ')');
+    }
   }
 
   goToTheCategoryPage(idtype) {
-    this.router.navigateByUrl('/onglets/categorie', { state: { idtype:idtype , name:"idtype" } });
+    let navigationExtras: NavigationExtras = {
+      state: {
+        idtype: idtype,
+        name: "idtype"
+      }
+    };
+    this.router.navigate(['/onglets/categorie'], navigationExtras);
   }
 
   goToTheUserInfoPage() {
