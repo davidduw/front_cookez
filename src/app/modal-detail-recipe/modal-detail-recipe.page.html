@@ -8,12 +8,18 @@
       </div>
       <div class="modal_slides_block">
         <ion-slides pager="true">
-          <ion-slide class="modal_slides_cards">
-            <h2 class="modal_slides_title">Étape 1</h2>
-            <p class="modal_slides_text">Hacher l'oignon et l'ail. Couper les tomates en morceaux et détailler les poivrons en lanières.</p>
+          <ion-slide class="modal_slides_cards" *ngFor="let etape of etapesPreparation | keyvalue">
+            <h2 class="modal_slides_title">Étape de préparation n°{{ etape.value.numEtape }}</h2>
+            <p class="modal_slides_text">{{ etape.value.etapeText }}</p>
+          </ion-slide>
+
+          <ion-slide class="modal_slides_cards" *ngFor="let etape of etapesCuisson | keyvalue">
+            <h2 class="modal_slides_title" *ngIf="etapesCuisson.length > 1; else elseBlock">Étape de cuisson n°{{ etape.value.numEtape }}</h2>
+            <ng-template #elseBlock><h2 class="modal_slides_title">Étape de cuisson</h2></ng-template>
+            <p class="modal_slides_text">{{ etape.value.etapeText }}</p>
           </ion-slide>
       
-          <ion-slide class="modal_slides_cards">
+          <!-- <ion-slide class="modal_slides_cards">
             <h2 class="modal_slides_title">Étape 2</h2>
             <p class="modal_slides_text">Faire chauffer 4 cuillères à soupe d'huile dans une cocotte. Y faire dorer les oignons, l'ail et les poivron. Laisser cuire 5 min. </p>
           </ion-slide>
@@ -26,7 +32,7 @@
           <ion-slide class="modal_slides_cards">
             <h2 class="modal_slides_title">Étape 4</h2>
             <p class="modal_slides_text">Ajouter les tomates à la cocotte, saler, poivrer. Couvrir et laisser mijoter 20 min. </p>
-          </ion-slide>
+          </ion-slide> -->
         </ion-slides>
       </div>
   </div>
