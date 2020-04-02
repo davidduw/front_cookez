@@ -93,9 +93,11 @@
           </ion-grid>
           <!-- Hashtags -->
           <div class="detail_recipe_hashtags_block">
-            <span class="detail_recipe_hashtags_text">#glutenfree</span>
-            <span class="detail_recipe_hashtags_text">#protéïné</span>
-            <span class="detail_recipe_hashtags_text">#glutenfree</span>
+            <span class="detail_recipe_hashtags_text" *ngFor="let etiquette of etiquettes">
+              #{{ etiquette.intitule }}
+            </span>
+            <!-- <span class="detail_recipe_hashtags_text">#protéïné</span>
+            <span class="detail_recipe_hashtags_text">#glutenfree</span> -->
           </div>
         </div>
       </div>
@@ -122,7 +124,12 @@
             <img src="assets/icon/arrow-down.svg" width="30px"/>
           </div>
           <div>
-
+            <ion-list class="detail_accordion_second_lvl">
+              <p *ngFor="let quantite of quantites">
+                {{ quantite.quantite }}
+                {{ quantite.ingredient.nom }}
+              </p>
+            </ion-list>
           </div>
           <div class="line"></div>
         </ion-list-header>
@@ -143,8 +150,8 @@
           </div>
           <div>
             <ion-list class="detail_accordion_second_lvl">
-              <p *ngFor="let etape of etapesPreparation | keyvalue">
-                {{ etape.value.etapeText }}
+              <p *ngFor="let etape of etapesPreparation">
+                {{ etape.etapeText }}
               </p>
             </ion-list>
           </div>
@@ -167,8 +174,8 @@
           </div>
           <div>
             <ion-list class="detail_accordion_second_lvl">
-              <p *ngFor="let etape of etapesCuisson | keyvalue">
-                {{ etape.value.etapeText }}
+              <p *ngFor="let etape of etapesCuisson">
+                {{ etape.etapeText }}
               </p>
             </ion-list>
           </div>

@@ -32,6 +32,8 @@ export class DetailsRecettePage implements OnInit{
   ingredients;
   etapesPreparation;
   etapesCuisson;
+  quantites;
+  etiquettes;
 
 
   constructor(private Activatedroute: ActivatedRoute, 
@@ -114,8 +116,11 @@ export class DetailsRecettePage implements OnInit{
         // nombre de personnes
         this.nbrPersonnes = data['nbrPersonnes'] + " pers.";
 
+        // étiquettes
+        this.etiquettes = data ['etiquettes'];
+
         //ingrédients de la recette
-        this.ingredients = data['ingredients'];
+        this.quantites = data['quantites'];
 
         // étapes de préparation
         this.etapesPreparation = data['preparations'];
