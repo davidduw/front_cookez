@@ -62,10 +62,6 @@ export class DetailsRecettePage implements OnInit{
     modal.present();
   }
 
-  toggleSection(i) {
-    this.information[i].open = !this.information[i].open;
-  }
-
   isShowIngr = true;
   isShowPrepa = false;
   isShowCuisson = false;
@@ -88,10 +84,6 @@ export class DetailsRecettePage implements OnInit{
         break;
     }
     
-  }
-
-  toggleItem(i, j) {
-    this.information[i].children[j].open = !this.information[i].children[j].open;
   }
 
   ngOnInit() {
@@ -117,8 +109,10 @@ export class DetailsRecettePage implements OnInit{
       // this.http.get("http://localhost:8000/api/types/"+this.idtype, httpOptions)
       this.http.get("http://localhost:3200/api/recettes/1", httpOptions)
       .subscribe(data => {
+        
         // titre de la recette
         this.nom = data['nom'];
+
         // difficulté de la recette
         this.difficulte = data['difficulte'];
         switch (this.difficulte) {
