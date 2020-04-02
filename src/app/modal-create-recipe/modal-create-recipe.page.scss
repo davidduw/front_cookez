@@ -33,6 +33,7 @@
     }
     .create_recipe_value_row {
         margin: 10px 0;
+        padding: 0 10px;
         border: 1px solid var(--ion-color-primary);
         font-size: 14px;
         .create_recipe_value {
@@ -63,6 +64,7 @@
             align-items: center;
             .create_recipe_value_row {
                 margin: 10px 0;
+                padding: 0 0 0 10px;
                 border: 1px solid var(--ion-color-primary);
                 font-size: 14px;
             }

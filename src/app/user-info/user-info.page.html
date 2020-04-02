@@ -54,5 +54,53 @@
 </ion-menu>
 
 <ion-content>
+  <!-- Main block -->
+  <div class="profile_page">
+    <!-- Title profile page -->
+    <h1 class="profile_title">Votre profil</h1>
+    <!-- Content profile : pseudo, mail, change password, delete account -->
+    <div class="profile_content">
+      <img src="assets/img/profile.svg" width="100px"/>
+      <div class="profile_text_block">
 
+        <!-- Pseudo -->
+        <div class="profile_section">
+          <div class="profile_pseudo">
+            <ion-label class="profile_label" position="stacked">Pseudo</ion-label>
+            <p class="profile_value">Jennifer</p>
+          </div>
+        </div>
+    
+        <div class="line"></div>
+
+        <!-- Mail -->
+        <div class="profile_section">
+          <div class="profile_mail">
+            <ion-label class="profile_label" position="stacked">Adresse mail</ion-label>
+            <p class="profile_value">jennifer.marsalc@gmail.com</p>
+          </div>
+        </div>
+    
+        <div class="line"></div>
+
+        <!-- Password -->
+        <div class="profile_section">
+          <div class="profile_password">
+            <ion-label class="profile_label" position="stacked">Mot de passe</ion-label>
+          </div>
+          <div class="profile_password_change">
+            <ion-input class="profile_input" placeholder="Nouveau mot de passe"></ion-input>
+          </div>
+          <div class="profile_password_conf">
+            <ion-input class="profile_input" placeholder="Confirmez nouveau mot de passe"></ion-input>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Button add ingredients -->
+      <div class="profile_btn_delete btn_size">
+          <span class="profile_btn_delete_text">Supprimer mon compte</span>
+        </div>
+    </div>
+  </div>
 </ion-content>

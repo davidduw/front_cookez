@@ -1,0 +1,61 @@
+.profile_page {
+    .profile_title {
+        text-transform: uppercase;
+        color: var(--ion-color-primary);
+        text-align: center;
+    }
+    .profile_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        .profile_text_block {
+            display: flex;
+            flex-direction: column;
+            padding: 15px 20px;
+            width: 100%;
+            .profile_section {
+                .profile_label {
+                    font-size: 18px;
+                    color: var(--ion-color-primary);
+                }
+                .profile_value {
+                    margin: 10px 0 15px 0;
+                }
+                .profile_password_change {
+                    margin: 10px 0;
+                    padding: 0 20px;
+                    border: 1px solid var(--ion-color-primary);
+                    font-size: 14px;
+                    .profile_input {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    }
+                }
+                .profile_password_conf {
+                    margin: 10px 0;
+                    padding: 0 20px;
+                    border: 1px solid var(--ion-color-primary);
+                    font-size: 14px;
+                    .profile_input {
+                        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                    }
+                }
+            }
+            .line {
+                height: 3px;
+                margin: 5px 0 15px 0;
+				background: linear-gradient(to right, rgba(200,200,200,0.1) 0%, #6fa3ed 25%, #4392f1 50%, #6fa3ed 75%, rgba(200,200,200,0.1) 100% );
+			}
+        }
+    }
+    .profile_btn_delete {
+        background-color: var(--ion-color-secondary);
+        .profile_btn_delete_text {
+            color: white;
+            text-transform: uppercase;
+            margin-top: 5px;
+            padding: 10px 0;
+            letter-spacing: 1px;
+        }
+    }
+}
