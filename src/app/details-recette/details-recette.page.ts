@@ -66,6 +66,30 @@ export class DetailsRecettePage implements OnInit{
     this.information[i].open = !this.information[i].open;
   }
 
+  isShowIngr = true;
+  isShowPrepa = false;
+  isShowCuisson = false;
+   
+  toggleDisplay($params) {
+    switch ($params) {
+      case 'ingredients':
+        this.isShowIngr = !this.isShowIngr;
+        break;
+
+      case 'preparation':
+        this.isShowPrepa = !this.isShowPrepa;
+        break;  
+    
+      case 'cuisson':
+        this.isShowCuisson= !this.isShowCuisson;
+        break;  
+      
+      default:
+        break;
+    }
+    
+  }
+
   toggleItem(i, j) {
     this.information[i].children[j].open = !this.information[i].children[j].open;
   }

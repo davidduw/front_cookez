@@ -113,17 +113,17 @@
       <!-- Ingredients -->
       <ion-list class="detail_recipe_width">
         <ion-list-header class="detail_accordion_open" no-padding >
-          <div class="detail_recipe_description_block_title" ion-item detail-none>
+          <div class="detail_recipe_description_block_title" ion-item detail-none (click)="toggleDisplay('ingredients')">
             <div class="detail_recipe_description_title_flex">
                 <img src="assets/icon/ingredient.svg" width="30px" />
                 <h1 class="detail_recipe_description_title">
                   Ingrédients
                 </h1>
             </div>
-            <!-- <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/> -->
-            <img src="assets/icon/arrow-down.svg" width="30px"/>
+            <img *ngIf = "isShowIngr == true"  src="assets/icon/arrow-up.svg" width="30px"/>
+            <img *ngIf = "isShowIngr == false"  src="assets/icon/arrow-down.svg" width="30px"/>
           </div>
-          <div>
+          <div *ngIf = "isShowIngr == true">
             <ion-list class="detail_accordion_second_lvl">
               <p *ngFor="let quantite of quantites">
                 {{ quantite.quantite }}
@@ -138,17 +138,17 @@
       <!-- Préparation -->
       <ion-list class="detail_recipe_width">
         <ion-list-header class="detail_accordion_open" no-padding >
-          <div class="detail_recipe_description_block_title" ion-item detail-none>
+          <div class="detail_recipe_description_block_title" ion-item detail-none (click)="toggleDisplay('preparation')">
             <div class="detail_recipe_description_title_flex">
                 <img src="assets/icon/prepare.svg" width="30px" />
                 <h1 class="detail_recipe_description_title">
                   Préparation
                 </h1>
             </div>
-            <!-- <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/> -->
-            <img src="assets/icon/arrow-down.svg" width="30px"/>
+            <img *ngIf = "isShowPrepa == true" src="assets/icon/arrow-up.svg" width="30px"/>
+            <img *ngIf = "isShowPrepa == false" src="assets/icon/arrow-down.svg" width="30px"/>
           </div>
-          <div>
+          <div *ngIf = "isShowPrepa == true">
             <ion-list class="detail_accordion_second_lvl">
               <p *ngFor="let etape of etapesPreparation">
                 {{ etape.etapeText }}
@@ -162,17 +162,17 @@
       <!-- Cuisson -->
       <ion-list class="detail_recipe_width">
         <ion-list-header class="detail_accordion_open" no-padding >
-          <div class="detail_recipe_description_block_title" ion-item detail-none>
+          <div class="detail_recipe_description_block_title" ion-item detail-none (click)="toggleDisplay('cuisson')">
             <div class="detail_recipe_description_title_flex">
                 <img src="assets/icon/cooking.svg" width="30px" />
                 <h1 class="detail_recipe_description_title">
                   Cuisson
                 </h1>
             </div>
-            <!-- <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/> -->
-            <img src="assets/icon/arrow-down.svg" width="30px"/>
+            <img *ngIf = "isShowCuisson == true" src="assets/icon/arrow-up.svg" width="30px"/>
+            <img *ngIf = "isShowCuisson == false" src="assets/icon/arrow-down.svg" width="30px"/>
           </div>
-          <div>
+          <div *ngIf = "isShowCuisson == true">
             <ion-list class="detail_accordion_second_lvl">
               <p *ngFor="let etape of etapesCuisson">
                 {{ etape.etapeText }}
@@ -185,20 +185,15 @@
 
       <!-- First level -->
       <!-- <ion-list class="detail_recipe_width">
-        <ion-list-header class="detail_accordion_open" *ngFor="let item of information; let i = index" no-padding>
+        <ion-list-header class="detail_accordion_open" *ngFor="let item of information; let i = index;" no-padding>
           <div class="detail_recipe_description_block_title" ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}" ngModel="myVar">
-            <div class="detail_recipe_description_title_flex" [ngSwitch]="item.name">
-                <img *ngSwitchCase="'Ingrédients'" src="assets/icon/ingredient.svg" width="30px" />
-                <img *ngSwitchCase="'Préparation'" src="assets/icon/prepare.svg" width="30px" />
-                <img *ngSwitchCase="'Cuisson'" src="assets/icon/cooking.svg" width="30px" />
-                <h1 class="detail_recipe_description_title">
-               
-                </h1>
+            <div class="detail_recipe_description_title_flex">
+              
             </div>
             <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/>
             <img src="assets/icon/arrow-down.svg" width="30px" *ngIf="!item.open"/>
           </div>
-          <div *ngFor="let etape of etapePreparation | keyvalue">
+          <div>
             <ion-list class="detail_accordion_second_lvl" *ngIf="item.children && item.open">
               <p>
                 {{ etape.description }}
