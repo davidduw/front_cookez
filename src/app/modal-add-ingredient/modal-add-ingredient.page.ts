@@ -36,6 +36,12 @@ export class ModalAddIngredientPage implements OnInit {
     this.router.navigate(['onglets/frigo-rempli'], navigationExtras)
   }
 
+  isShowCreateIngr = false;
+
+  createIngredient() {
+    this.isShowCreateIngr = true;
+  }
+
   ngOnInit() {
   }
 

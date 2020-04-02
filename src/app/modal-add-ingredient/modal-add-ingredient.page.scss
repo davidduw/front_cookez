@@ -19,6 +19,32 @@
     }
 }
 
+.modal_ingre_create_text {
+    padding: 0 20px;
+    color: var(--ion-color-primary);
+    font-size: 18px;
+    text-decoration: underline;
+}
+
+.modal_ingr_create_field {
+    padding: 0 20px;
+    .modal_ingr_create_label_row {
+        .modal_ingr_create_label {
+            font-size: 16px;
+            color: var(--ion-color-primary);
+            margin-bottom: 5px;
+        }
+    }
+    .modal_ingr_create_value_row {
+        margin: 10px 0;
+        border: 1px solid var(--ion-color-primary);
+        background-color: white;
+        font-size: 14px; 
+        color: black;
+        padding: 0px 20px;
+    }
+}
+
 .modal_ingr_flex {
     display: flex;
     flex-wrap: wrap;
