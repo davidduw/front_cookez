@@ -3,6 +3,7 @@ import { Router, NavigationExtras } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser'
 import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
+import { Storage } from '@ionic/storage';
 
 
 
@@ -14,30 +15,45 @@ import { environment, API_TOKEN, BACK_URL } from '../../environments/environment
 export class AccueilRecettePage implements OnInit {
 
   types = {};
+  token;
 
-  constructor(private router: Router, public http: HttpClient, private sanitizer: DomSanitizer) {
+  constructor(private storage: Storage, private router: Router, public http: HttpClient, private sanitizer: DomSanitizer) {
+    
     this.getTypes();
+
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+
+
+  }
 
   getTypes() {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
 
-    /* Requete */
-    this.http.get(BACK_URL + "api/types", httpOptions)
+    /** Verification si connectée */
+    this.storage.get('token').then((value) => {
+      this.token = value;
+      
+      /* Paramètrage du header */
+      var httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'BEARER ' + this.token
+        })
+      }
+
+      /* Requete */
+      this.http.get(BACK_URL + "api/types", httpOptions)
       .subscribe(data => {
         this.types = data;
       }, error => {
         console.log(error);
       });
+    });
+
+
+
   }
 
   safeImage(image) {

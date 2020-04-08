@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar class="header_toolbar header_gradient" border-color="primary">
     <ion-buttons slot="start">
-      <ion-back-button icon="" defaultHref="/" color="light"></ion-back-button>
+      <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>
       <div class="header_flex_logo">
@@ -17,17 +17,21 @@
   <form (ngSubmit)="registerForm()">
     <ion-item>
       <ion-label position="floating" > Email</ion-label>
-      <ion-input type="email" [(ngModel)]="register.email" name="email"></ion-input>
+      <ion-input type="email" [(ngModel)]="mail" name="mail"></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label position="floating" >Mot de passe</ion-label>
-      <ion-input type="password" [(ngModel)]="register.password" name="password"></ion-input>
+      <ion-input type="password" [(ngModel)]="password" name="password"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating" >Confirmer le mot de passe</ion-label>
+      <ion-input type="password" [(ngModel)]="passwordconfirm" name="passwordconfirm"></ion-input>
     </ion-item>
 
     <ion-button color="primary" expand="full" type="submit">Créer un compte</ion-button>
   </form>
-
-  <ion-button color="primary" expand="full" (click)="getData()">Test</ion-button>
+  <ion-label id="errorinfo" color="danger">{{this.errorinfo}}</ion-label>
 
 </ion-content>
