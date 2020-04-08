@@ -34,21 +34,29 @@ export class LoginPage implements OnInit {
   login(){
     var data = {};
 
+    data['mail'] = this.mail;
+    data['password'] = this.password;
+
+    this.authService.login(data);
+
     if(this.mail != undefined && this.password != undefined)
     {
-      data['mail'] = this.mail;
-      data['password'] = this.password;
-  
-      this.authService.login(data);
+
+
+
+
+
 
     }else{
       console.log("Veuillez renseigner les champs");
     }
+
+
+    //this.router.navigate(['/'])
   }
 
   register(){
     console.log("register");
   }
-
 
 }

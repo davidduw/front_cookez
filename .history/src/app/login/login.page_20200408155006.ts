@@ -34,6 +34,8 @@ export class LoginPage implements OnInit {
   login(){
     var data = {};
 
+
+
     if(this.mail != undefined && this.password != undefined)
     {
       data['mail'] = this.mail;
@@ -49,6 +51,5 @@ export class LoginPage implements OnInit {
   register(){
     console.log("register");
   }
-
 
 }

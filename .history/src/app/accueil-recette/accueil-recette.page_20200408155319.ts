@@ -73,7 +73,7 @@ export class AccueilRecettePage implements OnInit {
         name: "idtype"
       }
     };
-    this.router.navigate(['accueil/onglets/categorie'], navigationExtras);
+    this.router.navigate(['/onglets/categorie'], navigationExtras);
   }
 
   goToTheUserInfoPage() {

@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
 import { Storage } from '@ionic/storage';
-import { AuthService } from '../service/auth.service';
 
 //import { AuthService } from '../auth.service';
  
@@ -18,12 +17,13 @@ export class LoginPage implements OnInit {
   password;
   token = "";
 
-  constructor(private authService: AuthService, private router: Router, public http: HttpClient, private storage: Storage) { }
+  constructor(private router: Router, public http: HttpClient, private storage: Storage) { }
 
   ngOnInit() {
     /** Verification si déjà connectée */
     this.storage.get('token').then((value) => {
       this.token = value;
+      console.log(value);
     });
     if( (this.token != "") && (this.token != undefined) && (this.token != null))
     {
@@ -32,23 +32,46 @@ export class LoginPage implements OnInit {
   }
 
   login(){
-    var data = {};
+
 
     if(this.mail != undefined && this.password != undefined)
     {
-      data['mail'] = this.mail;
-      data['password'] = this.password;
-  
-      this.authService.login(data);
+      /* Paramètrage du header */
+      var httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        })
+      }
+
+      let postData = {
+        "email": this.mail,
+        "password": this.password,
+        'Authorization': ''
+      }
+
+      /* Requete */
+      this.http.post(BACK_URL + "authentication_token", postData, httpOptions)
+        .subscribe(data => {
+          console.log(data['token']);
+
+          // Data storage du token
+          this.storage.set('token', data['token']);
+          this.router.navigate(['/'])
+      }, error => {
+        console.log("Email ou mot de passe incorrect");
+      });
 
     }else{
       console.log("Veuillez renseigner les champs");
     }
+
+
+    //this.router.navigate(['/'])
   }
 
   register(){
     console.log("register");
   }
-
 
 }

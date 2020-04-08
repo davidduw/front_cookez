@@ -32,23 +32,47 @@ export class LoginPage implements OnInit {
   }
 
   login(){
-    var data = {};
+
+    this.authService.login();
 
     if(this.mail != undefined && this.password != undefined)
     {
-      data['mail'] = this.mail;
-      data['password'] = this.password;
-  
-      this.authService.login(data);
+      /* Paramètrage du header */
+      var httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        })
+      }
+
+      let postData = {
+        "email": this.mail,
+        "password": this.password,
+        'Authorization': ''
+      }
+
+      /* Requete */
+     /this.http.post(BACK_URL + "authentication_token", postData, httpOptions)
+        .subscribe(data => {
+          console.log(data['token']);
+
+          // Data storage du token
+          this.storage.set('token', data['token']);
+          this.router.navigate(['/'])
+      }, error => {
+        console.log("Email ou mot de passe incorrect");
+      });
 
     }else{
       console.log("Veuillez renseigner les champs");
     }
+
+
+    //this.router.navigate(['/'])
   }
 
   register(){
     console.log("register");
   }
-
 
 }

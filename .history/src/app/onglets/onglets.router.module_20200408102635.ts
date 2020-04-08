@@ -99,14 +99,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/accueil/onglets/accueil-recette',
+        redirectTo: '/onglets/accueil-recette',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: 'accueil/onglets/accueil-recette',
+    redirectTo: '/onglets/accueil-recette',
     pathMatch: 'full'
   }
 ];

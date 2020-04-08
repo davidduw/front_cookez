@@ -49,7 +49,7 @@ export class AuthService {
           console.log(data['token']);
 
           // Data storage du token
-          storage = this.storage.set(TOKEN_KEY, data['token']).then(res => {
+          storage = this.storage.set(TOKEN_KEY, 'Bearer 12345').then(res => {
             this.authenticationState.next(true);
           });
       }, error => {

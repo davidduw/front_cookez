@@ -50,5 +50,4 @@ export class LoginPage implements OnInit {
     console.log("register");
   }
 
-
 }

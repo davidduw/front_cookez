@@ -27,7 +27,6 @@ export class AppComponent {
       this.splashScreen.hide();
 
       this.authService.authenticationState.subscribe(state => {
-        console.log('Auth changed :', state);
         if(state){
           this.router.navigate(['accueil', 'onglets']);
         } else {

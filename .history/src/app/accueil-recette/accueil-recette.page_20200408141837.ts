@@ -4,7 +4,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser'
 import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
 import { Storage } from '@ionic/storage';
-import { AuthService } from '../service/auth.service';
 
 
 
@@ -18,12 +17,15 @@ export class AccueilRecettePage implements OnInit {
   types = {};
   token;
 
-  constructor(private authService: AuthService, private storage: Storage, private router: Router, public http: HttpClient, private sanitizer: DomSanitizer) {
+  constructor(private storage: Storage, private router: Router, public http: HttpClient, private sanitizer: DomSanitizer) {
     
+    this.getTypes();
+
   }
 
   ngOnInit() { 
-    this.getTypes();
+
+
   }
 
   getTypes() {
@@ -50,9 +52,8 @@ export class AccueilRecettePage implements OnInit {
         }, error => {
           console.log(error);
         });
-
       }else{
-        this.router.navigate(['/login'])
+        this.router.navigate(['/'])
       }
     });
 
@@ -73,15 +74,10 @@ export class AccueilRecettePage implements OnInit {
         name: "idtype"
       }
     };
-    this.router.navigate(['accueil/onglets/categorie'], navigationExtras);
+    this.router.navigate(['/onglets/categorie'], navigationExtras);
   }
 
   goToTheUserInfoPage() {
     this.router.navigateByUrl('/onglets/user-info')
-  }
-
-  logout()
-  {
-    this.authService.logout();
   }
 }

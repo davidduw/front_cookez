@@ -30,7 +30,7 @@ export class ModalCreateRecipePage implements OnInit {
   goToTheListOfRecipesCreatedPage() {
     let navigationExtras: NavigationExtras = {
       state: {
-        page: "accueil/onglets/accueil-recette"
+        page: "onglets/accueil-recette"
       }
     };
     this.router.navigate(['onglets/creation-recette-liste'], navigationExtras)

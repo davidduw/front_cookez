@@ -15,7 +15,6 @@ import { AppComponent } from './app.component';
 import {HttpModule} from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { NativeStorage } from '@ionic-native/native-storage';
-import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +23,6 @@ import { IonicStorageModule } from '@ionic/storage';
     HttpModule,
     HttpClientModule,
     IonicModule.forRoot(), 
-    IonicStorageModule.forRoot(),
     AppRoutingModule,
     ModalDetailRecipePageModule, 
     ModalAddIngredientPageModule, 

@@ -4,7 +4,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
 
 const TOKEN_KEY = 'auth-token';
 
@@ -26,9 +25,8 @@ export class AuthService {
     });
   }
 
-  login(data) {
+  login($data) {
 
-    var storage = null;
     /* Paramètrage du header */
     var httpOptions = {
       headers: new HttpHeaders({
@@ -38,8 +36,8 @@ export class AuthService {
     }
 
     let postData = {
-      'email': data.mail,
-      'password': data.password,
+      'email': this.mail,
+      'password': this.password,
       'Authorization': ''
     }
 
@@ -49,14 +47,15 @@ export class AuthService {
           console.log(data['token']);
 
           // Data storage du token
-          storage = this.storage.set(TOKEN_KEY, data['token']).then(res => {
-            this.authenticationState.next(true);
-          });
+          this.storage.set('token', data['token']);
+          this.router.navigate(['/'])
       }, error => {
         console.log("Email ou mot de passe incorrect");
     });    
 
-    return storage;
+    return this.storage.set(TOKEN_KEY, 'Bearer 12345').then(res => {
+      this.authenticationState.next(true);
+    });
   }
 
   logout() {
