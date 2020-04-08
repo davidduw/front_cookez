@@ -105,12 +105,13 @@ export class CategorieRecettesPage implements OnInit {
     }
   }
 
-  goToTheDetailsRecipePage() {
+  goToTheDetailsRecipePage(idrecette) {
     let navigationExtras: NavigationExtras = {
       state: {
-        page: "onglets/categorie"
+        idrecette: idrecette,
+        name: "idrecette"
       }
     };
-    this.router.navigate(['onglets/details-recette'], navigationExtras)
+    this.router.navigate(['/onglets/details-recette'], navigationExtras);
   }
 }

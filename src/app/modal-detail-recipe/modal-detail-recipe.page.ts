@@ -1,6 +1,6 @@
-import { API_TOKEN } from './../../environments/environment';
+import { API_TOKEN, BACK_URL } from './../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, NavParams } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
@@ -11,17 +11,11 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./modal-detail-recipe.page.scss'],
 })
 export class ModalDetailRecipePage implements OnInit {
-
-  constructor(private modalController: ModalController, 
-    private Activatedroute: ActivatedRoute,
-    private router: Router, 
-    private navCtrl: NavController, 
-    public http: HttpClient) { }
-
   information: any [];
   parentPage: string;
   // parentPage: string = "onglets/accueil-recette";
-  idtype = "";
+  idrecette = "";
+  titre = '';
   sub;
   typedata = {};
   recettes = [];
@@ -29,17 +23,24 @@ export class ModalDetailRecipePage implements OnInit {
   etapesPreparation;
   etapesCuisson;
 
+  constructor(private modalController: ModalController, 
+    private Activatedroute: ActivatedRoute,
+    private router: Router, 
+    private navCtrl: NavController, 
+    private navParams: NavParams,
+    public http: HttpClient) { 
+      this.idrecette = this.navParams.get('idrecette');
+      this.titre = this.navParams.get('titre');
+    }
+
+ 
+
   closeModal() {
     this.modalController.dismiss();
   }
 
   ngOnInit() {
-    this.sub=this.Activatedroute.paramMap.subscribe(params => { 
-      console.log(params);
-       this.idtype = params.get('idtype'); 
-    });
-
-    if(this.idtype != "0"){
+    if(this.idrecette != "0"){
       
       /* Paramètrage du header */
       var httpOptions = {
@@ -51,9 +52,7 @@ export class ModalDetailRecipePage implements OnInit {
       }
 
       /* Affichage recette sélectionnée */
-
-      // this.http.get("http://localhost:8000/api/types/"+this.idtype, httpOptions)
-      this.http.get("http://localhost:3200/api/recettes/1", httpOptions)
+      this.http.get(BACK_URL + "api/recettes/" + this.idrecette, httpOptions)
       .subscribe(data => {
       
         // étapes de préparation
