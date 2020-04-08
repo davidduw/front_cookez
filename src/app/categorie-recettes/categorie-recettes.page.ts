@@ -14,7 +14,7 @@ import { Storage } from '@ionic/storage';
 })
 export class CategorieRecettesPage implements OnInit {
 
-  parentPage: string = "onglets/accueil-recette";
+  parentPage: string = "accueil/onglets/accueil-recette";
   idtype: string;
   typedata = {};
   recettes = [];
