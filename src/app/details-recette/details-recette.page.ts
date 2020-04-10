@@ -134,10 +134,10 @@ export class DetailsRecettePage implements OnInit {
           this.quantites = data['quantites'];
 
           // étapes de préparation
-          this.etapesPreparation = data['preparations'];
+          this.etapesPreparation = data['preparations'].sort((a,b)=> a.numEtape-b.numEtape);
 
           // étapes de cuisson
-          this.etapesCuisson = data['cuissons'];
+          this.etapesCuisson = data['cuissons'].sort((a,b)=> a.numEtape-b.numEtape);
 
         }, error => {
           console.log(error);
