@@ -1,0 +1,47 @@
+<!-- Header : button close + category title -->
+<ion-content color="medium">
+  <div class="modal_ingr_header">
+    <div class="modal_ingr_header_close" (click)="closeModalAddIngredients()">
+      <img class="modal_ingr_header_close_icon" src="/assets/icon/cross.svg" />
+    </div>
+    <div class="modal_ingr_header_title">
+      Légumes 
+    </div>
+  </div>
+
+  <!-- Searchbar -->
+  <ion-searchbar class="new_searchbar" clearIcon placeholder="Rechercher un aliment"></ion-searchbar>
+  
+  <!-- List of ingredients by category -->
+  <ul class="ks-cboxtags modal_ingr_flex">
+
+    
+    <li *ngFor="let ingredient of ingredients | keyvalue" class="modal_ingr_card">
+      <input type="checkbox" id="{{ ingredient.value.id }}" value="{{ ingredient.value.nom }}">
+      <label (click)="ajouterIngredient(ingredient.value.id)" class="modal_ingr_card_text" for="{{ ingredient.value.id }}">{{ ingredient.value.nom }}</label>
+    </li>
+  
+  </ul>
+
+  <div>
+    <p class="modal_ingre_create_text" (click)="createIngredient()">Je ne trouve pas mon aliment...</p>
+    <div class="modal_ingr_create_field" *ngIf = "isShowCreateIngr == true">
+      <div class="modal_ingr_create_label_row">
+          <ion-label class="modal_ingr_create_label" position="stacked">Créer un aliment</ion-label>
+      </div>
+      <div class="modal_ingr_create_value_row">
+          <ion-input class="modal_ingr_create_value" required type="text" maxlength="100" placeholder="Saisir le nom de l'aliment"></ion-input>
+      </div>
+    </div>
+  </div>
+  
+</ion-content> 
+
+<!-- Button add to fridge -->
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-button expand="full" fill="clear" color="light" (click)="presentToast()">
+      Ajouter à mon frigo
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
