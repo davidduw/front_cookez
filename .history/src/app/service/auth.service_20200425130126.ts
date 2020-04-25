@@ -51,8 +51,7 @@ export class AuthService {
     /* Requete */
     this.http.post(BACK_URL + "/api/login_check", postData, httpOptions)
       .subscribe(data => {
-
-          // On stocke le jeton
+          // Data storage du token
           this.token = data['token'];
           storage = this.storage.set(TOKEN_KEY, this.token).then(res => {
             this.authenticationState.next(true);
@@ -84,14 +83,15 @@ export class AuthService {
       })
     }
 
-    /* Requete permettant de récuperer les infos utilisateur */
+    /* Requete */
     this.http.get(BACK_URL + "/api/users", httpOptions)
     .subscribe(data => {
       for (const value in data) {
+       // console.log(data[value]);
+
         if(data[value].email == mail)
         {
           user = data[value];
-          /** Stock information utilisateur */
           this.storage.set("userinfos", user);
         }
       }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment, API_TOKEN, BACK_URL, TOKEN_KEY } from '../../environments/environment';
+import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Storage } from '@ionic/storage';
 
@@ -35,10 +35,9 @@ export class CategorieRecettesPage implements OnInit {
   getRecettes(idtype) {
 
         /** Verification si connectée */
-        this.storage.get(TOKEN_KEY).then((value) => {
+        this.storage.get('token').then((value) => {
           this.token = value;
 
-          console.log(this.token);
 
           /* Paramètrage du header */
           var httpOptions = {

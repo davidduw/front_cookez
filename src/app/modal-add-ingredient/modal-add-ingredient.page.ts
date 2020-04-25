@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment, API_TOKEN, TOKEN_KEY, BACK_URL } from '../../environments/environment';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../service/auth.service';
+import { FormArray, FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-add-ingredient',
@@ -18,10 +19,15 @@ export class ModalAddIngredientPage implements OnInit {
   ingredients;
   userinfos;
 
+  form: FormGroup;
+  
+
   /** Ingrédients deja selectionnés */
   ingredientsstock;
 
-  constructor(private authService: AuthService, private storage: Storage, public http: HttpClient, private modalController: ModalController, public toastController: ToastController, private router: Router) { }
+  constructor(private authService: AuthService, private storage: Storage, public http: HttpClient, private modalController: ModalController, public toastController: ToastController, private router: Router, private formBuilder : FormBuilder) {
+
+  }
 
   ngOnInit() {
     
@@ -32,6 +38,10 @@ export class ModalAddIngredientPage implements OnInit {
 
     this.getCategorie(this.idcategorie);
 
+  }
+
+  changeIngredient(event) {
+    //this.ingredients.forEach(item => item.selected = checked);
   }
 
   getCategorie(idcategorie)
@@ -96,14 +106,9 @@ export class ModalAddIngredientPage implements OnInit {
     this.isShowCreateIngr = true;
   }
 
-  gestionIngredient()
-  {
-
-  }
-
   ajouterIngredient(idingredient)
   {
-    console.log(idingredient);
+   // this.frigo.push(idingredient);
   }
 
   retirerIngredient(idingredient)
@@ -129,13 +134,14 @@ export class ModalAddIngredientPage implements OnInit {
         }
     
         /* Requete */
+        console.log(BACK_URL + this.userinfos.frigo);
+
         this.http.get(BACK_URL + this.userinfos.frigo , httpOptions)
         .subscribe(data => {
           this.ingredientsstock = data['ingredients'];
           console.log(this.ingredientsstock);
         }, error => {
           console.log(error);
-          this.authService.logout();
         });
       }else{
         this.authService.logout();

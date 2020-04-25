@@ -84,14 +84,15 @@ export class AuthService {
       })
     }
 
-    /* Requete permettant de récuperer les infos utilisateur */
+    /* Requete */
     this.http.get(BACK_URL + "/api/users", httpOptions)
     .subscribe(data => {
       for (const value in data) {
+       // console.log(data[value]);
+
         if(data[value].email == mail)
         {
           user = data[value];
-          /** Stock information utilisateur */
           this.storage.set("userinfos", user);
         }
       }

@@ -15,8 +15,16 @@
   <!-- List of ingredients by category -->
   <ul class="ks-cboxtags modal_ingr_flex">
     <li class="modal_ingr_card">
-      <input type="checkbox" name="ingredients" value="{{ ingredient.value }}">
-      <label class="modal_ingr_card_text" for="{{ ingredient.value.id }}" (click)="selectedOptions()">{{ ingredient.value.nom }}</label>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+     
+      <label formArrayName="select" class="modal_ingr_card_text" *ngFor="let sel of form.controls.select.controls; let i = index">
+        
+        <input type="checkbox" [formControlName]="i"  name="ingredients"/>
+        {{ ingredient[i].value.nom }}
+      </label>
+
+      <button>submit</button>
+      </form>
     </li>
   </ul>
 

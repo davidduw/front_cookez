@@ -29,7 +29,6 @@ export class AuthService {
     });
   }
 
-  /** Connexion */
   login(data) {
     var storage = null;
     /* Paramètrage du header */
@@ -51,9 +50,9 @@ export class AuthService {
     /* Requete */
     this.http.post(BACK_URL + "/api/login_check", postData, httpOptions)
       .subscribe(data => {
-
-          // On stocke le jeton
+          // Data storage du token
           this.token = data['token'];
+          console.log(this.token);
           storage = this.storage.set(TOKEN_KEY, this.token).then(res => {
             this.authenticationState.next(true);
           });
@@ -84,14 +83,15 @@ export class AuthService {
       })
     }
 
-    /* Requete permettant de récuperer les infos utilisateur */
+    /* Requete */
     this.http.get(BACK_URL + "/api/users", httpOptions)
     .subscribe(data => {
       for (const value in data) {
+       // console.log(data[value]);
+
         if(data[value].email == mail)
         {
           user = data[value];
-          /** Stock information utilisateur */
           this.storage.set("userinfos", user);
         }
       }
@@ -101,20 +101,18 @@ export class AuthService {
     });
   }
 
-  /** Deconnexion */
   logout() {
     return this.storage.remove(TOKEN_KEY).then(() => {
       this.authenticationState.next(false);
     });
   }
 
-  /** Vérifie si conencté ou non */
   isAuthenticated()
   {
+    //return "test";
     return this.authenticationState.value;
   }
 
-  /** Vérifie le token */
   checkToken(){
     return this.storage.get(TOKEN_KEY).then(res => {
       if(res) {
