@@ -85,7 +85,10 @@
               </ion-col>
               <ion-col>
                 <div class="detail_recipe_info">
-                  <img src="assets/icon/favorite.svg" width="30px" />
+                  <label for="favorite_recipe" (click)="addFavoriteRecipe()">
+                    <img id="favorite_star" src="assets/icon/favorite_empty.svg" width="30px" />
+                  </label>
+                  <input type="checkbox" id="favorite_recipe" name="favorite"/>
                   <span class="detail_recipe_info_text">Favoris</span>
                 </div>
               </ion-col>
