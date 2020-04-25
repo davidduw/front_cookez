@@ -1,0 +1,208 @@
+<ion-header>
+  <ion-toolbar class="header_toolbar header_gradient" border-color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="{{parentPage}}" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-menu-button autoHide="false" color="light" menu="first"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      <div class="header_flex_logo">
+        <img class="header_width_logo" src="/assets/img/cookez_logo.png" />
+      </div>
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-menu side="start" menuId="first">
+  <ion-header>
+    <ion-toolbar class="menu" color="primary">
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item>
+        <ion-icon color="primary" sold="start" name="avatar" src="assets/avatar.svg" class="ion-margin-end"></ion-icon>
+        Mon compte
+      </ion-item>
+      <ion-item>
+        <ion-icon color="primary" sold="start" name="recipes" src="assets/recipes.svg" class="ion-margin-end">
+        </ion-icon>
+        Mes recettes
+      </ion-item>
+      <ion-item disabled>
+        <ion-label>
+          <ion-icon sold="start" name="informations" src="assets/informations.svg" class="ion-margin-end"></ion-icon>
+          Notifications
+        </ion-label>
+        <ion-badge color="primary" slot="end">22</ion-badge>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-icon color="primary" name="disconnect" src="assets/disconnect.svg" class="ion-margin-end"></ion-icon>
+          Se déconnecter
+        </ion-label>
+      </ion-item>
+    </ion-list>
+    <ion-label slod="bottom" class="copyright">
+      ©Tous droits réservés. David, Jennifer, Xavier, Thomas 2019
+    </ion-label>
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet main></ion-router-outlet>
+
+<ion-content>
+  <div class="detail_recipe_page">
+    <div class="detail_recipe_first_block">
+      <div class="detail_recipe_top_img">
+      </div>
+      <!-- Main block -->
+      <div class="detail_recipe_main_block">
+        <div class="detail_recipe_main_info">
+        <h1 class="detail_recipe_title">{{ nom }}</h1>
+          <ion-grid>
+            <!-- Time / lvl / number of people -->
+            <ion-row>
+              <ion-col>
+                <div class="detail_recipe_info">
+                  <img src="assets/icon/time.svg" width="30px" />
+                  <span class="detail_recipe_info_text">{{ tempsTotal }}</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="detail_recipe_info">
+                  <img src="assets/icon/level.svg" width="30px" />
+                <span class="detail_recipe_info_text">{{ difficulte }}</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="detail_recipe_info">
+                  <img src="assets/icon/number.svg" width="30px" />
+                  <span class="detail_recipe_info_text">{{ nbrPersonnes }}</span>
+                </div>
+              </ion-col>
+              <ion-col>
+                <div class="detail_recipe_info">
+                  <img src="assets/icon/favorite.svg" width="30px" />
+                  <span class="detail_recipe_info_text">Favoris</span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <!-- Hashtags -->
+          <div class="detail_recipe_hashtags_block">
+            <span class="detail_recipe_hashtags_text" *ngFor="let etiquette of etiquettes">
+              #{{ etiquette.intitule }}
+            </span>
+            <!-- <span class="detail_recipe_hashtags_text">#protéïné</span>
+            <span class="detail_recipe_hashtags_text">#glutenfree</span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Block ingredients / cook  -->
+    <div class="detail_recipe_description">
+      <!-- Modal recipe -->
+      <div class="detail_recipe_btn_modal btn_size" (click)="openModal()">
+        <span class="detail_recipe_btn_modal_text">Cuisinez cette recette pas à pas</span>
+      </div>
+
+      <!-- Ingredients -->
+      <ion-list class="detail_recipe_width">
+        <ion-list-header class="detail_accordion_open" no-padding >
+          <div class="detail_recipe_description_block_title" ion-item detail-none (click)="toggleDisplay('ingredients')">
+            <div class="detail_recipe_description_title_flex">
+                <img src="assets/icon/ingredient.svg" width="30px" />
+                <h1 class="detail_recipe_description_title">
+                  Ingrédients
+                </h1>
+            </div>
+            <img *ngIf = "isShowIngr == true"  src="assets/icon/arrow-up.svg" width="30px"/>
+            <img *ngIf = "isShowIngr == false"  src="assets/icon/arrow-down.svg" width="30px"/>
+          </div>
+          <div *ngIf = "isShowIngr == true">
+            <ion-list class="detail_accordion_second_lvl">
+              <p *ngFor="let quantite of quantites">
+                {{ quantite.quantite }}
+                {{ quantite.ingredient.nom }}
+              </p>
+            </ion-list>
+          </div>
+          <div class="line"></div>
+        </ion-list-header>
+      </ion-list>
+
+      <!-- Préparation -->
+      <ion-list class="detail_recipe_width">
+        <ion-list-header class="detail_accordion_open" no-padding >
+          <div class="detail_recipe_description_block_title" ion-item detail-none (click)="toggleDisplay('preparation')">
+            <div class="detail_recipe_description_title_flex">
+                <img src="assets/icon/prepare.svg" width="30px" />
+                <h1 class="detail_recipe_description_title">
+                  Préparation
+                </h1>
+            </div>
+            <img *ngIf = "isShowPrepa == true" src="assets/icon/arrow-up.svg" width="30px"/>
+            <img *ngIf = "isShowPrepa == false" src="assets/icon/arrow-down.svg" width="30px"/>
+          </div>
+          <div *ngIf = "isShowPrepa == true">
+            <ion-list class="detail_accordion_second_lvl">
+              <p *ngFor="let etape of etapesPreparation">
+                {{ etape.etapeText }}
+              </p>
+            </ion-list>
+          </div>
+          <div class="line"></div>
+        </ion-list-header>
+      </ion-list>
+
+      <!-- Cuisson -->
+      <ion-list class="detail_recipe_width">
+        <ion-list-header class="detail_accordion_open" no-padding >
+          <div class="detail_recipe_description_block_title" ion-item detail-none (click)="toggleDisplay('cuisson')">
+            <div class="detail_recipe_description_title_flex">
+                <img src="assets/icon/cooking.svg" width="30px" />
+                <h1 class="detail_recipe_description_title">
+                  Cuisson
+                </h1>
+            </div>
+            <img *ngIf = "isShowCuisson == true" src="assets/icon/arrow-up.svg" width="30px"/>
+            <img *ngIf = "isShowCuisson == false" src="assets/icon/arrow-down.svg" width="30px"/>
+          </div>
+          <div *ngIf = "isShowCuisson == true">
+            <ion-list class="detail_accordion_second_lvl">
+              <p *ngFor="let etape of etapesCuisson">
+                {{ etape.etapeText }}
+              </p>
+            </ion-list>
+          </div>
+          <div class="line"></div>
+        </ion-list-header>
+      </ion-list>
+
+      <!-- First level -->
+      <!-- <ion-list class="detail_recipe_width">
+        <ion-list-header class="detail_accordion_open" *ngFor="let item of information; let i = index;" no-padding>
+          <div class="detail_recipe_description_block_title" ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}" ngModel="myVar">
+            <div class="detail_recipe_description_title_flex">
+              
+            </div>
+            <img src="assets/icon/arrow-up.svg" width="30px" *ngIf="item.open"/>
+            <img src="assets/icon/arrow-down.svg" width="30px" *ngIf="!item.open"/>
+          </div>
+          <div>
+            <ion-list class="detail_accordion_second_lvl" *ngIf="item.children && item.open">
+              <p>
+                {{ etape.description }}
+              </p>
+            </ion-list>
+          </div>
+          <div class="line"></div>
+        </ion-list-header>
+      </ion-list> -->
+    </div>
+  </div>
+</ion-content>
