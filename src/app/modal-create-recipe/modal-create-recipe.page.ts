@@ -2,7 +2,8 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { environment, API_TOKEN, BACK_URL } from '../../environments/environment';
+import { environment, API_TOKEN, TOKEN_KEY, BACK_URL } from '../../environments/environment';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-modal-create-recipe',
@@ -10,6 +11,9 @@ import { environment, API_TOKEN, BACK_URL } from '../../environments/environment
   styleUrls: ['./modal-create-recipe.page.scss'],
 })
 export class ModalCreateRecipePage implements OnInit {
+  token;
+  httpOptions;
+
   types = {};
   etiquettes = {};
   ingredients = {};
@@ -32,15 +36,43 @@ export class ModalCreateRecipePage implements OnInit {
   minutesCuisson;
   etiquettesRecette = [];
   ingredientsRecette = [];
+  userId;
 
   recette;
 
-  constructor(private modalController: ModalController, public toastController: ToastController, private router: Router, public http: HttpClient) { }
+  constructor(private modalController: ModalController, public toastController: ToastController, private router: Router, public http: HttpClient, private storage: Storage) { }
 
   ngOnInit() {
-    this.getTypes();
-    this.getEtiquettes();
-    this.getIngredients();
+
+     /** Verification si connectée */
+     this.storage.get(TOKEN_KEY).then((value) => {
+      console.log(value);
+      if(value != null)
+      {
+        this.token = value;
+
+      /* Paramètrage du header */
+      this.httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Authorization': 'BEARER ' + this.token
+        })
+      }
+
+      this.getTypes();
+      this.getEtiquettes();
+      this.getIngredients();
+
+      }else{
+        this.router.navigate(['/login'])
+      }
+    });
+
+    this.storage.get("userinfos").then(res => {
+      console.log(res);
+      this.userId = res['id'];
+    });
   }
 
   closeModal() {
@@ -53,17 +85,8 @@ export class ModalCreateRecipePage implements OnInit {
   }
 
   postRecette() {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
-
     /* Requete */
-    this.http.post(BACK_URL + "api/recettes", this.getRecetteBody(), httpOptions)
+    this.http.post(BACK_URL + "/api/recettes", this.getRecetteBody(), this.httpOptions)
       .subscribe(data => {
         console.log(data);
         let idRecette = data['id'];
@@ -82,17 +105,8 @@ export class ModalCreateRecipePage implements OnInit {
   }
 
   postQuantites(quantiteBody: any) {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
-
     /* Requete */
-    this.http.post(BACK_URL + "api/quantites", quantiteBody, httpOptions)
+    this.http.post(BACK_URL + "/api/quantites", quantiteBody, this.httpOptions)
       .subscribe(data => {
         console.log(data);
       }, error => {
@@ -101,17 +115,8 @@ export class ModalCreateRecipePage implements OnInit {
   }
 
   postPreparations(preparationBody: any) {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
-
     /* Requete */
-    this.http.post(BACK_URL + "api/preparations", preparationBody, httpOptions)
+    this.http.post(BACK_URL + "/api/preparations", preparationBody, this.httpOptions)
       .subscribe(data => {
         console.log(data);
       }, error => {
@@ -120,17 +125,8 @@ export class ModalCreateRecipePage implements OnInit {
   }
 
   postCuissons(cuissonBody: any) {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
-
     /* Requete */
-    this.http.post(BACK_URL + "api/cuissons", cuissonBody, httpOptions)
+    this.http.post(BACK_URL + "/api/cuissons", cuissonBody, this.httpOptions)
       .subscribe(data => {
         console.log(data);
       }, error => {
@@ -165,7 +161,7 @@ export class ModalCreateRecipePage implements OnInit {
       "difficulte": +this.difficulte,
       "tempsprepa": tempsPrep.toString(),
       "tempscuisson": tempsCuis.toString(),
-      "createur": "/api/users/1",
+      "createur": "/api/users/" + this.userId,
       "statut": "A Verifier",
       "dateCreation": new Date(),
       "etiquettes": this.etiquettesRecette,
@@ -300,17 +296,8 @@ export class ModalCreateRecipePage implements OnInit {
   }
 
   getTypes() {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
-
     /* Requete */
-    this.http.get(BACK_URL + "api/types", httpOptions)
+    this.http.get(BACK_URL + "/api/types", this.httpOptions)
       .subscribe(data => {
         this.types = data;
         console.log(this.types)
@@ -320,17 +307,8 @@ export class ModalCreateRecipePage implements OnInit {
   }
 
   getEtiquettes() {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
-
     /* Requete */
-    this.http.get(BACK_URL + "api/etiquettes", httpOptions)
+    this.http.get(BACK_URL + "/api/etiquettes", this.httpOptions)
       .subscribe(data => {
         this.etiquettes = data;
         console.log(this.etiquettes)
@@ -340,17 +318,8 @@ export class ModalCreateRecipePage implements OnInit {
   }
 
   getIngredients() {
-    /* Paramètrage du header */
-    var httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': 'BEARER ' + API_TOKEN
-      })
-    }
-
     /* Requete */
-    this.http.get(BACK_URL + "api/ingredients", httpOptions)
+    this.http.get(BACK_URL + "/api/ingredients", this.httpOptions)
       .subscribe(data => {
         this.ingredients = data;
         console.log(this.ingredients)
