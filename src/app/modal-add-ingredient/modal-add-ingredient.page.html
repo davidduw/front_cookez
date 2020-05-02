@@ -12,13 +12,14 @@
   <!-- Searchbar -->
   <ion-searchbar class="new_searchbar" clearIcon placeholder="Rechercher un aliment"></ion-searchbar>
   
-  <!-- List of ingredients by category -->
-  <ul class="ks-cboxtags modal_ingr_flex">
-    <li class="modal_ingr_card">
-      <input type="checkbox" name="ingredients" value="{{ ingredient.value }}">
-      <label class="modal_ingr_card_text" for="{{ ingredient.value.id }}" (click)="selectedOptions()">{{ ingredient.value.nom }}</label>
-    </li>
-  </ul>
+  <!-- Liste des ingredients de la catégorie -->
+  <ion-list id="ingredients_list">
+    <ion-item *ngFor="let ingredient of ingredients">
+      <ion-label class="modal_ingr_card_text">{{ingredient.nom}}</ion-label>
+      <ion-checkbox slot="end" [(ngModel)]="ingredient.isChecked"></ion-checkbox>
+    </ion-item>
+
+  </ion-list>
 
   <div>
     <p class="modal_ingre_create_text" (click)="createIngredient()">Je ne trouve pas mon aliment...</p>
@@ -37,7 +38,7 @@
 <!-- Button add to fridge -->
 <ion-footer>
   <ion-toolbar color="primary">
-    <ion-button expand="full" fill="clear" color="light" (click)="presentToast()">
+    <ion-button expand="full" fill="clear" color="light" (click)="ajouterIngredients()">
       Ajouter à mon frigo
     </ion-button>
   </ion-toolbar>

@@ -52,7 +52,11 @@
 
 <ion-content>
   <!-- Main block -->
-  <div class="fridge_empty_page">
+
+  <div *ngIf="empty; then thenBlock else elseBlock">
+  </div>
+  <ng-template #thenBlock>
+    <div class="fridge_empty_page">
     <!-- Title fridge empty page -->
     <h1 class="page_title">Votre frigo</h1>
     <!-- Content fridge empty : img, text, button add ingredients -->
@@ -71,4 +75,16 @@
           </div>
     </div>
   </div>
+</ng-template>
+  <ng-template #elseBlock>
+    <h1 class="page_title">Votre frigo</h1>
+    <h2 class="fridge_empty_title">{{ this.messagefrigo }}</h2>
+    
+    <div *ngFor="let ingredient of ingredientfrigo">
+      <ion-label color="primary">Primary Label</ion-label><ion-icon color="danger" sold="start" name="avatar" src="assets/icon/cross.svg" class="ion-margin-end"></ion-icon>
+    </div>
+
+    <ion-button expand="block">Trouver une recette</ion-button>
+    <ion-button expand="block">Vider mon frigo</ion-button>
+  </ng-template>
 </ion-content>

@@ -49,10 +49,6 @@ export class AccueilRecettePage implements OnInit {
       }
     });
 
-    this.storage.get("userinfos").then(res => {
-      console.log(res);
-    });
-
   }
 
   getTypes() {

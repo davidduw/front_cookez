@@ -5,7 +5,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment, API_TOKEN, TOKEN_KEY, BACK_URL } from '../../environments/environment';
 import { Storage } from '@ionic/storage';
 import { AuthService } from '../service/auth.service';
-import { FormArray, FormControl, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-modal-add-ingredient',
@@ -18,19 +17,35 @@ export class ModalAddIngredientPage implements OnInit {
   token;
   ingredients;
   userinfos;
-
-  form: FormGroup;
+  httpOptions;
   
-
   /** Ingrédients deja selectionnés */
   ingredientsstock;
 
-  constructor(private authService: AuthService, private storage: Storage, public http: HttpClient, private modalController: ModalController, public toastController: ToastController, private router: Router, private formBuilder : FormBuilder) {
+  constructor(private authService: AuthService, private storage: Storage, public http: HttpClient, private modalController: ModalController, public toastController: ToastController, private router: Router) {
 
   }
 
   ngOnInit() {
     
+    /** Verification si connectée */
+    this.storage.get(TOKEN_KEY).then((value) => {
+      if(value != null)
+      {
+        this.token = value;
+        /* Paramètrage du header */
+      this.httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'BEARER ' + this.token
+          })
+        } 
+      }else{
+        this.authService.logout();
+      }
+    });
+
     /** Informations utilisateur */
     this.storage.get("userinfos").then(res => {
       this.userinfos = res;
@@ -38,10 +53,6 @@ export class ModalAddIngredientPage implements OnInit {
 
     this.getCategorie(this.idcategorie);
 
-  }
-
-  changeIngredient(event) {
-    //this.ingredients.forEach(item => item.selected = checked);
   }
 
   getCategorie(idcategorie)
@@ -64,6 +75,11 @@ export class ModalAddIngredientPage implements OnInit {
         this.http.get(BACK_URL + "/api/categories/"+idcategorie, httpOptions)
         .subscribe(data => {
           this.ingredients = data['ingredients'];
+
+          this.ingredients.forEach(element =>
+            element.isChecked = false
+          );
+
           console.log(this.ingredients);
         }, error => {
           console.log(error);
@@ -80,24 +96,25 @@ export class ModalAddIngredientPage implements OnInit {
   }
 
   async presentToast() {
+
     const toast = await this.toastController.create({
       message: "Ces aliments ont été ajoutés à votre frigo !",
       duration: 2000,
       cssClass: "modal_ingr_toast",
       color: "tertiary"
     });
-    toast.present()
-    this.goToTheFullFridgePage()
-    this.closeModalAddIngredients()
+    toast.present();
+    this.goToFridgePage();
+    this.closeModalAddIngredients();
   }
 
-  goToTheFullFridgePage() {
+  goToFridgePage() {
     let navigationExtras: NavigationExtras = {
       state: {
-        page: "onglets/categorie-ingredients"
+        page: "accueil/onglets/categorie-ingredients"
       }
     };
-    this.router.navigate(['onglets/frigo-rempli'], navigationExtras)
+    this.router.navigate(['accueil/onglets/frigo'], navigationExtras)
   }
 
   isShowCreateIngr = false;
@@ -106,47 +123,64 @@ export class ModalAddIngredientPage implements OnInit {
     this.isShowCreateIngr = true;
   }
 
-  ajouterIngredient(idingredient)
+  ajouterIngredients()
   {
-   // this.frigo.push(idingredient);
+
+    var checked = [];
+
+    for (let index = 0; index < this.ingredients.length; index++) {
+      const element = this.ingredients[index];
+      
+      if(element['isChecked'] == true)
+      {
+        checked.push(element);
+      }
+    }
+
+    /* Requete */
+    this.http.put(BACK_URL + this.userinfos.frigo, this.formFrigo(checked), this.httpOptions)
+      .subscribe(data => {
+        console.log(data);
+        this.presentToast(); 
+      }, error => {
+        console.log(error);
+      });
+
+    this.formFrigo(checked);
   }
 
-  retirerIngredient(idingredient)
+  /** Preparation du body */
+  formFrigo(ingredients)
   {
-    console.log(idingredient);
+
+    let ingredientsForm = [];
+
+    for (var i = 0; i < ingredients.length; i++) {
+      ingredientsForm.push("/api/ingredients/" + ingredients[i].id);
+    }
+
+    let frigoBody = {
+      "ingredients": ingredientsForm
+    }
+
+    return frigoBody;
+
   }
 
   /** Permet de récupérer les ingrédients du frigo */
   contenuFrigo()
   {
-    /** Verification si connectée */
-    this.storage.get(TOKEN_KEY).then((value) => {
-      if(value != null)
-      {
-        this.token = value;
-        /* Paramètrage du header */
-        var httpOptions = {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Authorization': 'BEARER ' + this.token
-          })
-        }
-    
-        /* Requete */
-        console.log(BACK_URL + this.userinfos.frigo);
+    /* Requete */
+    console.log(BACK_URL + this.userinfos.frigo);
 
-        this.http.get(BACK_URL + this.userinfos.frigo , httpOptions)
-        .subscribe(data => {
-          this.ingredientsstock = data['ingredients'];
-          console.log(this.ingredientsstock);
-        }, error => {
-          console.log(error);
-        });
-      }else{
-        this.authService.logout();
-      }
+    this.http.get(BACK_URL + this.userinfos.frigo , this.httpOptions)
+    .subscribe(data => {
+      this.ingredientsstock = data['ingredients'];
+      console.log(this.ingredientsstock);
+    }, error => {
+      console.log(error);
     });
+
   }
 
 }
