@@ -104,7 +104,7 @@ describe('DetailsRecetteService', () => {
     });
 
     it('exists', inject([DetailsRecetteService], (service: DetailsRecetteService) => {
-        expect(service).toBeTruthy();
+        expect(service instanceof DetailsRecetteService).toBe(true);
     }));
 
     describe('recette', () => {
