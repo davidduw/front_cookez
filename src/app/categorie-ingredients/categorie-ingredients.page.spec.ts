@@ -3,8 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { Storage } from '@ionic/storage';
 
 import { CategorieIngredientsPage } from './categorie-ingredients.page';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { ModalController } from '@ionic/angular';
 
 class MockStorage {
   private internal = [];
@@ -22,9 +23,10 @@ describe('CategorieIngredientsPage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterModule.forRoot([])],
       providers: [{
         provide: Storage, useClass: MockStorage
-      }, { provide: Router }, { provide: HttpClient }
+      }, { provide: Router }, { provide: HttpClient }, { provide: ModalController}
       ],
       declarations: [ CategorieIngredientsPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
