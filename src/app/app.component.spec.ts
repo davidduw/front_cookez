@@ -1,11 +1,24 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, async } from '@angular/core/testing';
+import { Storage } from '@ionic/storage';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppComponent } from './app.component';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
+class MockStorage {
+  private internal = [];
+  public get(key: string): Promise<any> {
+    let getval = this.internal[key];
+    return new Promise(function (resolve: Function): void {
+      resolve(getval);
+    });
+  }
+}
 
 describe('AppComponent', () => {
 
@@ -24,6 +37,7 @@ describe('AppComponent', () => {
         { provide: StatusBar, useValue: statusBarSpy },
         { provide: SplashScreen, useValue: splashScreenSpy },
         { provide: Platform, useValue: platformSpy },
+        { provide: Storage, useClass: MockStorage}, {provide: Router}, {provide: HttpClient}
       ],
     }).compileComponents();
   }));

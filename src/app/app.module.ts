@@ -34,6 +34,7 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     SplashScreen,
+    IonicStorageModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     
   ],

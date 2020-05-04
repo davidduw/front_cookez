@@ -1,12 +1,11 @@
-import { API_TOKEN, BACK_URL } from './../../environments/environment';
+import { environment, API_TOKEN, TOKEN_KEY, BACK_URL } from '../../environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-// import { Http } from '@angular/http';
 import { ModalDetailRecipePage } from './../modal-detail-recipe/modal-detail-recipe.page';
 import { ModalController, NavController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
-import { forEach } from '@angular/router/src/utils/collection';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-details-recette',
@@ -14,6 +13,8 @@ import { forEach } from '@angular/router/src/utils/collection';
   styleUrls: ['details-recette.page.scss']
 })
 export class DetailsRecettePage implements OnInit {
+  token;
+  httpOptions;
 
   information: any[];
   parentPage: string;
@@ -41,7 +42,8 @@ export class DetailsRecettePage implements OnInit {
     private activatedroute: ActivatedRoute,
     private modalController: ModalController,
     private navCtrl: NavController,
-    public http: HttpClient) {
+    public http: HttpClient,
+    private storage: Storage) {
 
     this.activatedroute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -54,7 +56,7 @@ export class DetailsRecettePage implements OnInit {
   async openModal() {
     const modal = await this.modalController.create({
       component: ModalDetailRecipePage,
-      componentProps: { 
+      componentProps: {
         titre: this.nom,
         idrecette: this.idrecette
       }
@@ -85,22 +87,33 @@ export class DetailsRecettePage implements OnInit {
     }
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+    /** Verification si connectée */
+    this.storage.get(TOKEN_KEY).then((value) => {
+      console.log(value);
+      if (value != null) {
+        this.token = value;
+
+        /* Paramètrage du header */
+        this.httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'BEARER ' + this.token
+          })
+        }
+      } else {
+        this.router.navigate(['/login'])
+      }
+    });
+  }
 
   getRecette(idrecette: string) {
     if (idrecette != "0") {
 
-      /* Paramètrage du header */
-      var httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'BEARER ' + API_TOKEN
-        })
-      }
-
       /* Affichage recette sélectionnée */
-      this.http.get(BACK_URL + "api/recettes/" + idrecette, httpOptions)
+      this.http.get(BACK_URL + "/api/recettes/" + idrecette, this.httpOptions)
         .subscribe(data => {
 
           // titre de la recette
@@ -134,10 +147,10 @@ export class DetailsRecettePage implements OnInit {
           this.quantites = data['quantites'];
 
           // étapes de préparation
-          this.etapesPreparation = data['preparations'].sort((a,b)=> a.numEtape-b.numEtape);
+          this.etapesPreparation = data['preparations'].sort((a, b) => a.numEtape - b.numEtape);
 
           // étapes de cuisson
-          this.etapesCuisson = data['cuissons'].sort((a,b)=> a.numEtape-b.numEtape);
+          this.etapesCuisson = data['cuissons'].sort((a, b) => a.numEtape - b.numEtape);
 
         }, error => {
           console.log(error);

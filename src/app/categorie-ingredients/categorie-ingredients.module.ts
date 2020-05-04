@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-
 import { IonicModule } from '@ionic/angular';
-
 import { CategorieIngredientsPage } from './categorie-ingredients.page';
+import { IonicStorageModule } from '@ionic/storage';
 
 const routes: Routes = [
   {
@@ -19,6 +18,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicStorageModule.forRoot(),
     RouterModule.forChild(routes)
   ],
   declarations: [CategorieIngredientsPage]
