@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/map';
 import { Storage } from '@ionic/storage';
+import { DetailsRecetteService } from '../service/details-recette.service';
 
 @Component({
   selector: 'app-details-recette',
@@ -43,7 +44,8 @@ export class DetailsRecettePage implements OnInit {
     private modalController: ModalController,
     private navCtrl: NavController,
     public http: HttpClient,
-    private storage: Storage) {
+    private storage: Storage,
+    private detailRecetteService: DetailsRecetteService) {
 
     this.activatedroute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
@@ -113,7 +115,7 @@ export class DetailsRecettePage implements OnInit {
     if (idrecette != "0") {
 
       /* Affichage recette sélectionnée */
-      this.http.get(BACK_URL + "/api/recettes/" + idrecette, this.httpOptions)
+      this.detailRecetteService.getRecettes(idrecette, this.httpOptions)
         .subscribe(data => {
 
           // titre de la recette
