@@ -18,8 +18,7 @@ export class DetailsRecettePage implements OnInit {
   httpOptions;
 
   information: any[];
-  parentPage: string;
-  // parentPage: string = "onglets/accueil-recette";
+  parentPage: string = "onglets/categorie";
   idrecette = "";
   sub;
   typedata = {};
@@ -49,6 +48,7 @@ export class DetailsRecettePage implements OnInit {
 
     this.activatedroute.queryParams.subscribe(params => {
       if (this.router.getCurrentNavigation().extras.state) {
+        this.parentPage = this.router.getCurrentNavigation().extras.state.parentPage;
         this.idrecette = this.router.getCurrentNavigation().extras.state.idrecette;
         this.getRecette(this.idrecette);
       }
