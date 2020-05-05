@@ -18,6 +18,7 @@ export class ModalAddIngredientPage implements OnInit {
   ingredients;
   userinfos;
   httpOptions;
+  checked = [];
   
   /** Ingrédients deja selectionnés */
   ingredientsstock;
@@ -104,7 +105,6 @@ export class ModalAddIngredientPage implements OnInit {
       color: "tertiary"
     });
     toast.present();
-    this.goToFridgePage();
     this.closeModalAddIngredients();
   }
 
@@ -126,27 +126,39 @@ export class ModalAddIngredientPage implements OnInit {
   ajouterIngredients()
   {
 
-    var checked = [];
+    /** On recupere les ingredients deja existants */
 
-    for (let index = 0; index < this.ingredients.length; index++) {
-      const element = this.ingredients[index];
-      
-      if(element['isChecked'] == true)
-      {
-        checked.push(element);
-      }
-    }
+    this.storage.get("userinfos").then(res => {
 
-    /* Requete */
-    this.http.put(BACK_URL + this.userinfos.frigo, this.formFrigo(checked), this.httpOptions)
+      /* Requete */
+      this.http.get(BACK_URL + res.frigo , this.httpOptions)
       .subscribe(data => {
-        console.log(data);
-        this.presentToast(); 
+          this.checked = data['ingredients'];
+
+          for (let index = 0; index < this.ingredients.length; index++) {
+            const element = this.ingredients[index];
+            if(element['isChecked'] == true)
+            {
+              this.checked.push(element);
+            }
+          }
+
+          console.log(this.checked);
+
+          this.http.put(BACK_URL + this.userinfos.frigo, this.formFrigo(this.checked), this.httpOptions)
+          .subscribe(data => {
+            console.log(data);
+            this.presentToast(); 
+          }, error => {
+            console.log(error);
+          });
+
       }, error => {
         console.log(error);
+        this.authService.logout();
       });
 
-    this.formFrigo(checked);
+    });
   }
 
   /** Preparation du body */
