@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalCreateRecipePage } from '../modal-create-recipe/modal-create-recipe.page';
 import { Storage } from '@ionic/storage';
 import { environment, API_TOKEN, TOKEN_KEY, BACK_URL } from '../../environments/environment';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,8 +14,10 @@ import { Router } from '@angular/router';
 export class CreationRecettePage implements OnInit {
   token;
   httpOptions;
+  userMail;
+  recettes;
 
-  constructor(private nav: NavController, private router: Router, private modalController: ModalController, private storage: Storage) {}
+  constructor(private nav: NavController, public http: HttpClient, private router: Router, private modalController: ModalController, private storage: Storage) {}
 
   ngOnInit() {
 
@@ -33,15 +35,26 @@ export class CreationRecettePage implements OnInit {
             'Authorization': 'BEARER ' + this.token
           })
         }
+
+        this.storage.get("userinfos").then(res => {
+          this.userMail = res['email'];
+        });
+    
+        /* Requete permettant de récuperer les recettes utilisateur */
+        this.http.get(BACK_URL + "/api/users", this.httpOptions)
+        .subscribe(data => {
+          for (const value in data) {
+            if(data[value].email == this.userMail) {
+              this.recettes = data[value].recettes;
+              if(this.recettes.length != 0){
+                this.router.navigate(['accueil/onglets/creation-recette-liste']);
+              }
+            }
+          }
+        });
+
       } else {
         this.router.navigate(['/login'])
-      }
-    });
-
-    this.storage.get("userinfos").then(res => {
-      console.log(res);
-      if(res['recettes'].length != 0){
-        this.router.navigate(['accueil/onglets/creation-recette-liste']);
       }
     });
   }
@@ -49,6 +62,9 @@ export class CreationRecettePage implements OnInit {
   async openModalCreateRecipe() {
     const modal = await this.modalController.create({
       component: ModalCreateRecipePage
+    });
+    modal.onDidDismiss().then((data) => {
+      this.router.navigate(['accueil/onglets/creation-recette-liste']);
     });
     modal.present();
   }

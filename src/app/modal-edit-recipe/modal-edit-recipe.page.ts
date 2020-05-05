@@ -1,35 +1,37 @@
-import { ModalController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { environment, API_TOKEN, TOKEN_KEY, BACK_URL } from '../../environments/environment';
+import { ModalController, ToastController, NavParams } from '@ionic/angular';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Storage } from '@ionic/storage';
+import { TOKEN_KEY, BACK_URL } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-modal-create-recipe',
-  templateUrl: './modal-create-recipe.page.html',
-  styleUrls: ['./modal-create-recipe.page.scss'],
+  selector: 'app-modal-edit-recipe',
+  templateUrl: './modal-edit-recipe.page.html',
+  styleUrls: ['./modal-edit-recipe.page.scss'],
 })
-export class ModalCreateRecipePage implements OnInit {
+export class ModalEditRecipePage implements OnInit {
   token;
   httpOptions;
+
+  idRecette;
 
   types = {};
   etiquettes = {};
   ingredients = {};
-  ingredientIncr = [0];
-  qteArray = [""];
-  ingredientArray = [""];
-  preparationIncr = [0];
-  prepArray = [""];
-  cuissonIncr = [0];
-  cuisArray = [""];
+  ingredientIncr = [];
+  qteArray = [];
+  ingredientArray = [];
+  preparationIncr = [];
+  prepArray = [];
+  cuissonIncr = [];
+  cuisArray = [];
   etiquettesChecked = [];
 
   titreInput;
   typeInput;
   nbPortionsInput;
-  difficulte = 1;
+  difficulte;
   heuresPreparation;
   minutesPreparation;
   heuresCuisson;
@@ -40,31 +42,37 @@ export class ModalCreateRecipePage implements OnInit {
 
   recette;
 
-  constructor(private modalController: ModalController, public toastController: ToastController, private router: Router, public http: HttpClient, private storage: Storage) { }
+  constructor(private modalController: ModalController,
+    public toastController: ToastController,
+    private router: Router,
+    public http: HttpClient,
+    private navParams: NavParams,
+    private storage: Storage) {
+    this.idRecette = this.navParams.get('idRecette');
+  }
 
   ngOnInit() {
 
-     /** Verification si connectée */
-     this.storage.get(TOKEN_KEY).then((value) => {
+    /** Verification si connectée */
+    this.storage.get(TOKEN_KEY).then((value) => {
       console.log(value);
-      if(value != null)
-      {
+      if (value != null) {
         this.token = value;
 
-      /* Paramètrage du header */
-      this.httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Authorization': 'BEARER ' + this.token
-        })
-      }
+        /* Paramètrage du header */
+        this.httpOptions = {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': 'BEARER ' + this.token
+          })
+        }
 
-      this.getTypes();
-      this.getEtiquettes();
-      this.getIngredients();
+        this.getDatas().then(() => {
+          this.getRecette(this.idRecette);
+        });
 
-      }else{
+      } else {
         this.router.navigate(['/login'])
       }
     });
@@ -79,24 +87,60 @@ export class ModalCreateRecipePage implements OnInit {
     this.modalController.dismiss();
   }
 
-  enregistrerRecette() {
-    this.postRecette();
+  async getDatas() {
+    await this.getTypes();
+    await this.getEtiquettes();
+    await this.getIngredients();
+  }
+
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: "Votre recette a bien été modifiée !",
+      duration: 2000,
+      cssClass: "modal_create_recipe_toast",
+      color: "tertiary"
+    });
+    toast.present();
+    this.closeModal()
+  }
+
+  editerRecette() {
+    this.updateRecette();
     this.presentToast();
   }
 
-  postRecette() {
+  updateRecette() {
     /* Requete */
-    this.http.post(BACK_URL + "/api/recettes", this.getRecetteBody(), this.httpOptions)
+    this.http.put(BACK_URL + "/api/recettes/" + this.idRecette, this.getRecetteBody(), this.httpOptions)
       .subscribe(data => {
         console.log(data);
-        let idRecette = data['id'];
-        this.getQuantiteBody(idRecette).forEach(quantite => {
+        this.recette.quantites.forEach(quantite => {
+          this.http.delete(BACK_URL + "/api/quantites/" + quantite.id, this.httpOptions)
+          .subscribe(data => {
+            console.log("Suppression quantité n°" + quantite.id);
+          });
+        });
+        this.getQuantiteBody(this.idRecette).forEach(quantite => {
           this.postQuantites(quantite);
         });
-        this.getPreparationBody(idRecette).forEach(preparation => {
+
+        this.recette.preparations.forEach(preparation => {
+          this.http.delete(BACK_URL + "/api/preparations/" + preparation.id, this.httpOptions)
+          .subscribe(data => {
+            console.log("Suppression preparation n°" + preparation.id);
+          });
+        });
+        this.getPreparationBody(this.idRecette).forEach(preparation => {
           this.postPreparations(preparation);
         });
-        this.getCuissonBody(idRecette).forEach(cuisson => {
+
+        this.recette.cuissons.forEach(cuisson => {
+          this.http.delete(BACK_URL + "/api/cuissons/" + cuisson.id, this.httpOptions)
+          .subscribe(data => {
+            console.log("Suppression cuisson n°" + cuisson.id);
+          });
+        });
+        this.getCuissonBody(this.idRecette).forEach(cuisson => {
           this.postCuissons(cuisson);
         });
       }, error => {
@@ -163,7 +207,6 @@ export class ModalCreateRecipePage implements OnInit {
       "tempscuisson": tempsCuis.toString(),
       "createur": "/api/users/" + this.userId,
       "statut": "A Verifier",
-      "dateCreation": new Date(),
       "etiquettes": this.etiquettesRecette,
       "ingredients": this.ingredientsRecette
     }
@@ -208,6 +251,58 @@ export class ModalCreateRecipePage implements OnInit {
       cuissonRecette.push(cuissonObj);
     }
     return cuissonRecette;
+  }
+
+  initModalData() {
+    this.titreInput = this.recette.nom;
+    this.typeInput = this.recette.type.id;
+    this.nbPortionsInput = this.recette.nbrPersonnes;
+    this.difficulte = this.recette.difficulte;
+    this.minutesPreparation = this.recette.tempsprepa % 60;
+    this.heuresPreparation = (this.recette.tempsprepa - this.minutesPreparation) / 60;
+    this.minutesCuisson = this.recette.tempscuisson % 60;
+    this.heuresCuisson = (this.recette.tempscuisson - this.minutesCuisson) / 60;
+
+    this.recette.etiquettes.forEach(etiquette => {
+      this.etiquettesChecked.push("" + etiquette.id);
+    });
+    this.etiquettesChecked.forEach(idEtiq => {
+      let etInput = document.getElementById(idEtiq) as HTMLInputElement;
+      etInput.checked = true;
+    });
+
+    if (this.recette.ingredients.length == 0) {
+      this.ingredientIncr = [0];
+      this.ingredientArray = [""];
+    } else {
+      for (let index = 0; index < this.recette.ingredients.length; index++) {
+        this.qteArray.push("" + this.recette.quantites[index].quantite);
+        this.ingredientArray.push("" + this.recette.quantites[index].ingredient.id);
+        this.ingredientIncr.push(this.ingredientIncr.length);
+      }
+    }
+
+    if (this.recette.preparations.length == 0) {
+      this.preparationIncr = [0];
+      this.prepArray = [""];
+    } else {
+      this.recette.preparations = this.recette.preparations.sort((a, b) => a.numEtape - b.numEtape);
+      for (let index = 0; index < this.recette.preparations.length; index++) {
+        this.prepArray.push(this.recette.preparations[index].etapeText);
+        this.preparationIncr.push(this.preparationIncr.length);
+      }
+    }
+
+    if (this.recette.cuissons.length == 0) {
+      this.cuissonIncr = [0];
+      this.cuisArray = [""];
+    } else {
+      this.recette.cuissons = this.recette.cuissons.sort((a, b) => a.numEtape - b.numEtape);
+      for (let index = 0; index < this.recette.cuissons.length; index++) {
+        this.cuisArray.push(this.recette.cuissons[index].etapeText);
+        this.cuissonIncr.push(this.cuissonIncr.length);
+      }
+    }
   }
 
   etiquetteclick(event: any) {
@@ -274,15 +369,16 @@ export class ModalCreateRecipePage implements OnInit {
     this.cuisArray.push("");
   }
 
-  async presentToast() {
-    const toast = await this.toastController.create({
-      message: "Votre recette a bien été enregistrée !",
-      duration: 2000,
-      cssClass: "modal_create_recipe_toast",
-      color: "tertiary"
-    });
-    toast.present()
-    this.closeModal()
+  getRecette(idRecette) {
+    /* Requete */
+    this.http.get(BACK_URL + "/api/recettes/" + idRecette, this.httpOptions)
+      .subscribe(data => {
+        this.recette = data;
+        console.log(this.recette)
+        this.initModalData();
+      }, error => {
+        console.log(error);
+      });
   }
 
   getTypes() {
