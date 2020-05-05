@@ -27,7 +27,7 @@
         <ion-label class="create_recipe_label" position="stacked">Type de recette</ion-label>
       </div>
       <div class="create_recipe_value_row">
-        <ion-select class="create_recipe_value" ok-text="Valider" cancel-text="Annuler"
+        <ion-select [(ngModel)]="typeInput" name="type" class="create_recipe_value" ok-text="Valider" cancel-text="Annuler"
           (ionChange)="onChangeType($event);" placeholder="Ex: Plat">
           <ion-select-option *ngFor="let type of types" [value]="type.id">{{ type.nom }}</ion-select-option>
         </ion-select>
@@ -55,7 +55,7 @@
         <ion-label class="create_recipe_label" position="stacked">Niveau de difficulté</ion-label>
       </div>
       <div class="create_recipe_segment_row">
-        <ion-segment (ionChange)="onChangeDifficulte($event)">
+        <ion-segment [(ngModel)]="difficulte" name="difficulte" (ionChange)="onChangeDifficulte($event)">
           <ion-segment-button value="1" checked>
             <ion-label class="create_recipe_value">Facile</ion-label>
           </ion-segment-button>
@@ -98,7 +98,7 @@
         </div>
         <span>(de)</span>
         <div class="create_recipe_ingredient_input create_recipe_value_row">
-          <ion-select class="create_recipe_value" ok-text="Valider" cancel-text="Annuler"
+          <ion-select [(ngModel)]="ingredientArray[incr]" name="ingr-{{incr}}" class="create_recipe_value" ok-text="Valider" cancel-text="Annuler"
             (ionChange)="onChangeIngredient($event, incr);" placeholder="Ingrédient">
             <ion-select-option *ngFor="let ingredient of ingredients" value="{{ingredient.id}}">{{ingredient.nom}}
             </ion-select-option>
@@ -201,8 +201,8 @@
     </div>
 
     <!-- Button save -->
-    <ion-button expand="full" type="submit" fill="clear" color="primary" (click)="enregistrerRecette()">
-      Enregistrer
+    <ion-button expand="full" type="submit" fill="clear" color="primary" (click)="editerRecette()">
+      Mettre à jour
     </ion-button>
   </form>
 </ion-content>
