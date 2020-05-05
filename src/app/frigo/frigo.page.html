@@ -79,12 +79,48 @@
   <ng-template #elseBlock>
     <h1 class="page_title">Votre frigo</h1>
     <h2 class="fridge_empty_title">{{ this.messagefrigo }}</h2>
-    
-    <div *ngFor="let ingredient of ingredientfrigo">
-      <ion-label color="primary">Primary Label</ion-label><ion-icon color="danger" sold="start" name="avatar" src="assets/icon/cross.svg" class="ion-margin-end"></ion-icon>
-    </div>
 
-    <ion-button expand="block">Trouver une recette</ion-button>
+    <ion-row>
+      <div *ngFor="let ingredient of ingredientsfrigo">
+        <ion-col size="3">
+          <ion-label color="primary">{{ ingredient.nom }}</ion-label> <ion-icon color="danger" sold="start" name="avatar" src="assets/icon/cross.svg" class="ion-margin-end"></ion-icon>
+        </ion-col>
+      </div>
+    </ion-row>
+    <ion-button expand="block" (click)="recetteIntelligente()">Trouver une recette</ion-button>
     <ion-button expand="block">Vider mon frigo</ion-button>
+    <ion-button expand="block" (click)="goToTheIngredientCategoryPage()">Modifier le contenu du frigo</ion-button>
   </ng-template>
+
+
+    <ion-row *ngIf="recettesTrouvees.length > 0">
+      <!-- First card -->
+      <ion-col size="6" *ngFor="let recette of recettesTrouvees | keyvalue">
+        <ion-card class="list_recipe_card_block ion_card_margin" (click)="goToTheDetailsRecipePage(recette.value.id)">
+          <div class="list_recipe_card">
+            <div class="list_recipe_img" [style.background-image]="safeImage(recette.value.image)">
+              <!-- Add img css -->
+            </div>
+            <div class="list_recipe_card_infos">
+              <h1 class="list_recipe_card_title">{{ recette.value.nom }}</h1>
+              <div class="list_recipe_info_block">
+                <div class="list_recipe_info">
+                  <img src="assets/icon/time.svg" width="30px" />
+                  <span class="list_recipe_info_text">{{ recette.value.tempsTotal }}</span>
+                </div>
+                <div class="list_recipe_info">
+                  <img src="assets/icon/level.svg" width="30px" />
+                  <span class="list_recipe_info_text">{{ recette.value.difficulte }}</span>
+                </div>
+                <div class="list_recipe_info">
+                  <img src="assets/icon/favorite.svg" width="30px" />
+                  <span class="list_recipe_info_text">{{ recette.value.noteMoyenne}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+
 </ion-content>
