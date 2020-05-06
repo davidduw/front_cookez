@@ -1,0 +1,171 @@
+.modal_create_header {
+    display: flex;
+    .modal_create_header_close {
+        padding: 15px;
+        z-index: 5;
+        .modal_create_header_close_icon {
+            width: 30px;
+        }
+    }
+    .modal_create_header_title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 70px;
+        font-size: 26px;
+        color: var(--ion-color-primary);
+    }
+}
+
+.create_recipe_form_section {
+    margin: 20px 15px;
+    .create_recipe_label_row {
+        .create_recipe_label {
+            font-size: 22px;
+            color: var(--ion-color-primary);
+            margin-bottom: 5px;
+        }
+        .create_recipe_example {
+            margin: 10px 0 0 0;
+        }
+    }
+    .create_recipe_value_row {
+        margin: 10px 0;
+        padding: 0 10px;
+        border: 1px solid var(--ion-color-primary);
+        font-size: 14px;
+        .create_recipe_value {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    }
+    .create_recipe_segment_row {
+        margin: 10px 5px;
+        .create_recipe_value {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    }
+    --color: black;
+    .create_recipe_value_display {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .create_recipe_first_col {
+            width: 20%;
+            margin-right: 5px;
+        }
+        .create_recipe_second_col {
+            width: 80%;
+        }
+        .create_recipe_time_col {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            .create_recipe_value_row {
+                margin: 10px 0;
+                padding: 0 0 0 10px;
+                border: 1px solid var(--ion-color-primary);
+                font-size: 14px;
+            }
+            .create_recipe_time_input {
+                width: 30%;
+            }
+        }
+        .create_recipe_quantity_input {
+            width: 25%;
+        }
+        .create_recipe_ingredient_input {
+            width: 50%;
+        }
+        .create_recipe_step_input {
+            width: 80%;
+        }
+    }
+}
+
+.modal_create_header {
+    display: flex;
+    .modal_create_header_close {
+        padding: 15px;
+        z-index: 5;
+        .modal_create_header_close_icon {
+            width: 30px;
+        }
+    }
+    .modal_create_header_title {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 70px;
+        font-size: 30px;
+        color: var(--ion-color-primary);
+    }
+}
+
+.modal_create_flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.modal_create_card {
+    width: 48%;
+    .modal_create_card_text {
+        font-size: 20px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+// Checkbox inputs
+ul.ks-cboxtags {
+    list-style: none;
+    padding: 0;
+}
+ul.ks-cboxtags li label{
+    display: inline-block;
+    background-color: white;
+    border: 2px solid rgba(139, 139, 139, .3);
+    color: var(--ion-color-primary);
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all .1s;
+}
+
+ul.ks-cboxtags li label {
+    padding: 15px 0px 10px 0px;
+    cursor: pointer;
+}
+ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+    border: 2px solid #4392f1;
+    background-color: #6fa3ed;
+    color: #fff;
+    transition: all .1s;
+}
+
+ul.ks-cboxtags li input[type="checkbox"] {
+  display: absolute;
+}
+ul.ks-cboxtags li input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.line {
+    height: 3px;
+    background: linear-gradient(to right, rgba(200,200,200,0.1) 0%, #6fa3ed 25%, #4392f1 50%, #6fa3ed 75%, rgba(200,200,200,0.1) 100% );
+}

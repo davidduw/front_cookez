@@ -1,4 +1,5 @@
 import { ModalCreateRecipePageModule } from './modal-create-recipe/modal-create-recipe.module';
+import { ModalEditRecipePageModule } from './modal-edit-recipe/modal-edit-recipe.module';
 import { CategorieIngredientsPageModule } from './categorie-ingredients/categorie-ingredients.module';
 import { ModalAddIngredientPageModule } from './modal-add-ingredient/modal-add-ingredient.module';
 import { ModalDetailRecipePageModule } from './modal-detail-recipe/modal-detail-recipe.module';
@@ -29,7 +30,8 @@ import { IonicStorageModule } from '@ionic/storage';
     ModalDetailRecipePageModule, 
     ModalAddIngredientPageModule, 
     CategorieIngredientsPageModule, 
-    ModalCreateRecipePageModule
+    ModalCreateRecipePageModule,
+    ModalEditRecipePageModule
   ],
   providers: [
     StatusBar,

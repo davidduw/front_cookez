@@ -119,6 +119,7 @@ export class CategorieRecettesPage implements OnInit {
   goToTheDetailsRecipePage(idrecette) {
     let navigationExtras: NavigationExtras = {
       state: {
+        parentPage: "accueil/onglets/categorie",
         idrecette: idrecette,
         name: "idrecette"
       }

@@ -72,7 +72,8 @@ export class AccueilRecettePage implements OnInit {
     let navigationExtras: NavigationExtras = {
       state: {
         idtype: idtype,
-        name: "idtype"
+        name: "idtype",
+        parentPage: "onglets/accueil-recette"
       }
     };
     this.router.navigate(['accueil/onglets/categorie'], navigationExtras);
