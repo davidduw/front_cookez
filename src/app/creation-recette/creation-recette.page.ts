@@ -59,6 +59,21 @@ export class CreationRecettePage implements OnInit {
     });
   }
 
+  ionViewWillEnter () {
+    /* Requete permettant de récuperer les recettes utilisateur */
+    this.http.get(BACK_URL + "/api/users", this.httpOptions)
+    .subscribe(data => {
+      for (const value in data) {
+        if(data[value].email == this.userMail) {
+          this.recettes = data[value].recettes;
+          if(this.recettes.length != 0){
+            this.router.navigate(['accueil/onglets/creation-recette-liste']);
+          }
+        }
+      }
+    });
+  }
+
   async openModalCreateRecipe() {
     const modal = await this.modalController.create({
       component: ModalCreateRecipePage
