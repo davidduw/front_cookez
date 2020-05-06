@@ -75,8 +75,8 @@ export class ModalCreateRecipePage implements OnInit {
     });
   }
 
-  closeModal() {
-    this.modalController.dismiss();
+  closeModal(etat) {
+    this.modalController.dismiss(etat);
   }
 
   enregistrerRecette() {
@@ -282,7 +282,7 @@ export class ModalCreateRecipePage implements OnInit {
       color: "tertiary"
     });
     toast.present()
-    this.closeModal()
+    this.closeModal("post");
   }
 
   getTypes() {

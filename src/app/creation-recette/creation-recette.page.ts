@@ -64,7 +64,9 @@ export class CreationRecettePage implements OnInit {
       component: ModalCreateRecipePage
     });
     modal.onDidDismiss().then((data) => {
-      this.router.navigate(['accueil/onglets/creation-recette-liste']);
+      if(data.data === "post") {
+        this.router.navigate(['accueil/onglets/creation-recette-liste']);
+      }
     });
     modal.present();
   }
