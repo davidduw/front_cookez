@@ -52,7 +52,7 @@
 
 <ion-content>
   <!-- Main block -->
-
+  <div class="full_fridge_page">
   <div *ngIf="empty; then thenBlock else elseBlock">
   </div>
   <ng-template #thenBlock>
@@ -78,18 +78,39 @@
 </ng-template>
   <ng-template #elseBlock>
     <h1 class="page_title">Votre frigo</h1>
+
+    <div class="full_fridge_top">
+      <div class="full_fridge_buttons" (click)="recetteIntelligente()">
+        <div class="full_fridge_btn_img">
+          <img src="assets/icon/find.svg" width="50px"/>
+        </div>
+        <div class="full_fridge_btn_text">
+          <span>Trouver une recette</span>
+        </div>
+      </div>
+
+      <div class="full_fridge_buttons">
+        <div class="full_fridge_btn_img">
+          <img src="assets/icon/clean.svg" width="50px"/>
+        </div>
+        <div class="full_fridge_btn_text">
+          <span>Vider mon frigo</span>
+        </div>
+      </div>
+    </div>
+
     <h2 class="fridge_empty_title">{{ this.messagefrigo }}</h2>
 
-    <ion-row>
-      <div *ngFor="let ingredient of ingredientsfrigo">
-        <ion-col size="3">
-          <ion-label color="primary">{{ ingredient.nom }}</ion-label> <ion-icon color="danger" sold="start" name="avatar" src="assets/icon/cross.svg" class="ion-margin-end"></ion-icon>
-        </ion-col>
+      <div class="full_fridge_list_ingredients">
+        <div class="full_fridge_ingredient" *ngFor="let ingredient of ingredientsfrigo">
+          <div>
+              <p class="full_fridge_ingr_text">{{ ingredient.nom }}</p>
+          </div>
+          <div class="full_fridge_clear_icon">
+            <img src="assets/icon/clear.svg" width="20px"/>
+          </div>
+        </div>
       </div>
-    </ion-row>
-    <ion-button expand="block" (click)="recetteIntelligente()">Trouver une recette</ion-button>
-    <ion-button expand="block">Vider mon frigo</ion-button>
-    <ion-button expand="block" (click)="goToTheIngredientCategoryPage()">Modifier le contenu du frigo</ion-button>
   </ng-template>
 
 
@@ -122,5 +143,11 @@
         </ion-card>
       </ion-col>
     </ion-row>
-
+    <!-- Button add ingredients -->
+    <ion-fab vertical="bottom" horizontal="end" color="secondary" slot="fixed" (click)="goToTheIngredientCategoryPage()">
+      <ion-fab-button>
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
 </ion-content>

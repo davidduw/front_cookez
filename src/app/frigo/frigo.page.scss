@@ -80,3 +80,54 @@
     }
   }
   
+  .full_fridge_page {
+    .full_fridge_top {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0 10px;
+        .full_fridge_buttons {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            .full_fridge_btn_img {
+                width: 70px;
+                height: 70px;
+                background-color: var(--ion-color-secondary);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+            }
+            .full_fridge_btn_text {
+                margin: 10px 0;
+                font-size: 18px;
+            }
+        }
+    }
+    .full_fridge_list_ingredients {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 5px;
+        .full_fridge_ingredient {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid var(--ion-color-secondary);
+            border-radius: 20px;
+            color: var(--ion-color-primary);
+            width: 45%;
+            padding: 0 15px;
+            margin: 5px;
+            .full_fridge_ingr_text {
+                margin: 10px 0 5px 0;
+                font-size: 18px;
+            }
+            .full_fridge_clear_icon {
+                margin: 10px 0 5px 0;
+            }
+        }
+    }
+}
+
