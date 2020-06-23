@@ -14,6 +14,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class FrigoPage {
 
+  frigoId;
   empty;
   messagefrigo;
   ingredientsfrigo;
@@ -42,7 +43,8 @@ export class FrigoPage {
 
       /** Liste des ingrédients du frigo */
       this.storage.get("userinfos").then(res => {
-        this.getFrigo(res.frigo);
+        this.frigoId = res.frigo;
+        this.getFrigo(this.frigoId);
       });
 
       }else{
@@ -75,6 +77,13 @@ export class FrigoPage {
     }, error => {
       console.log(error);
       this.authService.logout();
+    });
+  }
+
+  ionViewWillEnter () {
+    this.storage.get("userinfos").then(res => {
+      this.frigoId = res.frigo;
+      this.getFrigo(this.frigoId);
     });
   }
   
